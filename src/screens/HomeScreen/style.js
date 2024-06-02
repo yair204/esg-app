@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
+    marginBottom: 15,
   },
   subCardContainer: {
     flex: 1,
     flexDirection: 'row',
-    // padding:7,
+    marginTop:20,
     gap: 20,
     width: '90%',
     justifyContent: 'space-around',
@@ -37,17 +37,7 @@ export const styles = StyleSheet.create({
     gap: 15,
     // backgroundColor:'red',
   },
-  // card: {
-  //   width: '90%',
-  //   height: '35%',
-  //   backgroundColor:'#F9F8F8',
-  //   borderRadius:16,
-  //   // paddingRight: 10
-  //   flexDirection: 'row-reverse',
-  //   alignItems: 'center',
-  //   justifyContent: 'space-around',
-  // },
-
+ 
   
   bigCardContainer: {
     width: '90%',

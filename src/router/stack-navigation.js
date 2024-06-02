@@ -1,28 +1,37 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { CompletedScreen } from '../screens/CompletedScreen';
-import { TaskScreen } from '../screens/TaskScreen';
-
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationComponents } from '../components/NavigationComponent';
-import { HomeScreen } from '../screens/HomeScreen';
+import ChooseRole from '../screens/ChooseRoleScreen';
+import {SignUpManager} from '../screens/SignupManager';
+import {SignUpUser} from '../screens/SignupUser';
+import {HomeScreen} from '../screens/HomeScreen';
 import MarketPlace from '../screens/MarketPlace';
+import {ProfileScreen} from '../screens/ProfileScreen';
+import { connect } from 'react-redux';
 import { routes } from './routes';
-import { ProfileScreen } from '../screens/ProfileScreen';
-import Main from '../components/MainWrapper';
 
 const Stack = createStackNavigator();
 
-const MyStack = () =>  {
+const MyStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown:false}}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={routes.ChooseRole} component={ChooseRole} />
+      <Stack.Screen name={routes.SignUpManager} component={SignUpManager} />
+      <Stack.Screen name={routes.SignUpUser} component={SignUpUser} />
       <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
-      <Stack.Screen name="Task" component={TaskScreen} />
       <Stack.Screen name={routes.MarketPlace} component={MarketPlace} />
       <Stack.Screen name={routes.Profile} component={ProfileScreen} />
-     
     </Stack.Navigator>
   );
-}
+};
 
-export default MyStack;
+const mapStateToProps = (state) => ({
+  isSignUp: state.signUp.isSignUp,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  signUp: () => dispatch({ type: 'SIGN_UP' }),
+  logout: () => dispatch({ type: 'LOGOUT' }),
+  removeUser: () => dispatch({ type: 'REMOVE_USER' }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyStack);

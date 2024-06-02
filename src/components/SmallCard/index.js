@@ -6,7 +6,7 @@ import {Card} from 'react-native-paper';
 
 
 export const SmallCard = ({text,calFunc ,upwardTrend}) => {
-    const backgroundColor  =  upwardTrend? '#DAFEE4':'#FDE5F3';
+    const backgroundColor  =  upwardTrend? '#98EDB1':'#FDE5F3';
     const arrowDirection =  upwardTrend? "arrow-up" :"arrow-down";
   
   return(
@@ -17,6 +17,7 @@ export const SmallCard = ({text,calFunc ,upwardTrend}) => {
             width: '90%',
             flexDirection: 'row-reverse',
             justifyContent: 'space-between',
+            
           }}>
           <Text style={styles.smallCardText}>{text}</Text>
           <View
@@ -26,6 +27,8 @@ export const SmallCard = ({text,calFunc ,upwardTrend}) => {
               alignItems: 'center',
               gap: 5,
               backgroundColor:backgroundColor,
+              borderRadius:10,
+              width:'20%'
             }}>
             <Text>{calFunc}</Text>
             <FontAwesome5 name={arrowDirection} size={15} />

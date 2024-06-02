@@ -1,54 +1,67 @@
-import {View, StyleSheet ,Text, TouchableOpacity} from 'react-native';
-import {Card} from 'react-native-paper';
+import React from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
+import { Card } from 'react-native-paper';
 
-const CustomCard = ({bottomText ,navigation,route ,url , withText = true}) => {
+const CustomCard = ({
+  bottomText,
+  navigation,
+  route,
+  url,
+  bgColor,
+  cardCoverHigh = 150,
+  withText = true,
+}) => {
   return (
-    <TouchableOpacity style={{flex:1}} onPress={() => navigation.navigate(route)}>
-    <View style={styles.container}>
-      <Card style={styles.card}>
-      {url && (
-            <Card.Cover
-              style={styles.cardCover}
-              source={{ uri: url }}
-            />
+    <View style={[styles.card, { backgroundColor: bgColor }]}>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        onPress={() => navigation.navigate(route)}>
+        <ImageBackground
+          
+          style={[styles.image]} 
+          imageStyle={{ borderRadius: 16 ,resizeMode: 'center' }} 
+          source={{ uri: url }}>
+          {withText && (
+            <Text style={[styles.cardText, { backgroundColor: bgColor }]}>
+              {bottomText}
+            </Text>
           )}
-        {withText && <View style={styles.cardContent}>
-          <Text style={styles.cardText}>{bottomText}</Text>
-        </View>}
-      </Card>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    borderRadius: 16,
   },
-
   card: {
+    flex: 1,
+    borderRadius: 16,
+    overflow: 'hidden', 
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'flex-end',
     width: '100%',
-    marginBottom: 20,
-    borderRadius:16
-  },
-  cardCover: {
-    height: 150,
-  },
-  cardContent: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius:16
-
+    height: 170,
+    borderRadius: 16,
   },
   cardText: {
-    color: 'white',
+    color: '#464646',
     textAlign: 'center',
+    fontSize: 17,
+    padding: 10,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
   },
 });
 
