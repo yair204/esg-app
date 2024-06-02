@@ -3,6 +3,7 @@ export const routes = {
     SignUpManager: 'SignUpManager',
     SignUpUser: 'SignUpUser',
     HomeScreen: 'HomeScreen',
+    CalculationsScreen:"CalculationsScreen",
     MarketPlace: 'MarketPlace',
     Profile: 'Profile',
   };

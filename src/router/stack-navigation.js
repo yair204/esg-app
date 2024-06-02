@@ -8,12 +8,14 @@ import MarketPlace from '../screens/MarketPlace';
 import {ProfileScreen} from '../screens/ProfileScreen';
 import { connect } from 'react-redux';
 import { routes } from './routes';
+import Calculations from '../screens/CalculationsScreen';
 
 const Stack = createStackNavigator();
 
 const MyStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
       <Stack.Screen name={routes.ChooseRole} component={ChooseRole} />
       <Stack.Screen name={routes.SignUpManager} component={SignUpManager} />
       <Stack.Screen name={routes.SignUpUser} component={SignUpUser} />
