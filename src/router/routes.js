@@ -2,9 +2,12 @@ export const routes = {
     ChooseRole: 'ChooseRole',
     SignUpManager: 'SignUpManager',
     SignUpUser: 'SignUpUser',
+    Login:"Login",
     HomeScreen: 'HomeScreen',
     CalculationsScreen:"CalculationsScreen",
-    MarketPlace: 'MarketPlace',
+    FoodMarket: 'FoodMarket',
     Profile: 'Profile',
+    DashBoardManager:"DashBoardManager",
+    CompanyForm:"CompanyForm",
   };
   

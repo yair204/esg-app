@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet,View ,Text} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Card} from 'react-native-paper'; 
+import IndexUpDown from '../IndexUpDown';
 
 
 
@@ -20,19 +21,8 @@ export const SmallCard = ({text,calFunc ,upwardTrend}) => {
             
           }}>
           <Text style={styles.smallCardText}>{text}</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 5,
-              backgroundColor:backgroundColor,
-              borderRadius:10,
-              width:'20%'
-            }}>
-            <Text>{calFunc}</Text>
-            <FontAwesome5 name={arrowDirection} size={15} />
-          </View>
+         
+          <IndexUpDown calFunc={calFunc} upwardTrend={upwardTrend}/>
         </View>
       </Card.Content>
     </Card>

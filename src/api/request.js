@@ -57,6 +57,7 @@ export const get = async (url, isPrivate) => {
 export const post = async (url, body ,isPrivate) => {
   try {
     const result = await axios.post(url, body ,isPrivate);
+    console.log("🚀 ~ post ~ result:", result.data)
     return result.data;
   } catch (err) {
     console.log(err);

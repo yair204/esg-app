@@ -16,6 +16,7 @@ import CustomCard from '../../components/CustomCard';
 import {routes} from '../../router/routes';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from 'react-native-date-picker';
+import images from '../../theme/images';
 
 export const ProfileScreen = ({navigation}) => {
   const [bdVisible, setBDVisible] = useState(false);
@@ -127,12 +128,14 @@ export const ProfileScreen = ({navigation}) => {
                   <CustomCard
                     bottomText={'Another Market'}
                     navigation={navigation}
-                    url={imageUrl}
+                    url={images.Recycling}
+                    bgColor={'#FFCD29'}
+                    route={routes.MarketPlace}
                   />
                 </View>
                 <View style={styles.card}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'Another'}
                     navigation={navigation}
                     url={imageUrl}
                   />

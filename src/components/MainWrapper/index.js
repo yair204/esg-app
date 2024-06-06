@@ -6,7 +6,6 @@ import { Footer } from '../footer';
 
 
 const Main = ({children,navigation}) => {
-  console.log("children")
   return (
     <SafeAreaView style={{flex: 1}}>
         <Header navigation={navigation}/>

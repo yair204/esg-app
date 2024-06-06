@@ -81,67 +81,25 @@ const requestPhotoAccessPermission = async () => {
 // };
 
 const requestLocationPermission = async () => {
-  try {
-    if (Platform.OS === 'android') {
-      const fineLocationGranted = await PermissionsAndroid.check(
-        LOCATION_PERMISSION,
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Permission',
+          message: 'This app needs access to your location.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
       );
-      const backgroundLocationGranted = await PermissionsAndroid.check(
-        BACKGROUND_LOCATION_PERMISSION,
-      );
-
-      if (!fineLocationGranted) {
-        const grantedFineLocation = await PermissionsAndroid.request(
-          LOCATION_PERMISSION,
-          {
-            title: 'Location Permission',
-            message:
-              'This app needs access to your location to show your position on the map.',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-
-        if (grantedFineLocation !== PermissionsAndroid.RESULTS.GRANTED) {
-          console.error('Fine location permission not granted');
-        }
-      }
-
-      if (!backgroundLocationGranted) {
-        const grantedBackgroundLocation = await PermissionsAndroid.request(
-          BACKGROUND_LOCATION_PERMISSION,
-          {
-            title: strings('general.permissionTitle'),
-            message: strings('general.permissionMessage'),
-            buttonNegative: strings('general.cancel'),
-            buttonPositive: strings('general.confirm'),
-          },
-        );
-
-        if (grantedBackgroundLocation !== PermissionsAndroid.RESULTS.GRANTED) {
-          throw new Error('Background location permission not granted');
-        }
-      } else {
-        return PermissionsAndroid.RESULTS.GRANTED;
-      }
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.warn(err);
+      return false;
     }
-
-    if (Platform.OS === 'ios') {
-      await Geolocation.setRNConfiguration({
-        skipPermissionRequests: false,
-        authorizationLevel: 'whenInUse',
-      });
-
-      const granted = await Geolocation.requestAuthorization('whenInUse');
-      if (granted == 'granted') {
-        return 'granted';
-      }
-    }
-  } catch (error) {
-    console.error('Error requesting location permissions:', error);
-    throw error;
   }
+  return true;
 };
 
 //  const requestCalendarPermissions = async () => {

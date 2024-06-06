@@ -4,8 +4,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import axios from 'axios';
 import { logCurrentStorage, storeAsyncStorageObject } from '../../storage/async-storage';
 import { connect } from "react-redux";
+import { routes } from '../../router/routes';
 
-const SignupManagerScreen = ({navigation}) => {
+const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -26,16 +27,21 @@ const SignupManagerScreen = ({navigation}) => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://10.0.2.2:8000/api/manager/signup/', formData);
-      console.log("🚀 ~ handleSubmit ~ response:", response.data.id)
+      const user = {...formData,userId : response.data.id}
+      console.log("🚀 ~ handleSubmit ~ user:", user)
+      console.log("🚀 ~ handleSubmit ~ response:", response.data.id);
       setSuccess('Manager registered successfully!');
       setError(null);
-      await storeAsyncStorageObject('userInfo', response.data.id);
+      await storeAsyncStorageObject('userInfo', user.userId);
       await logCurrentStorage()
-    //   navigation.navigate('SomeScreen', {...formData});
+      setUser(user);
+      setIsManager(true);//need to add validation
+      signUp();
     } catch (error) {
       setError('Registration failed!');
       setSuccess(null);
     }
+     
   };
 
   return (
@@ -122,7 +128,9 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
     signUp: () => dispatch({ type: "SIGN_UP" }),
-    // setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData })
+    setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData }),
+    setIsManager: (isManager) => dispatch({type: 'SET_IS_MANAGER', payload: isManager}),
+
   })
   
   export const SignUpManager = connect(null, mapDispatchToProps)(SignupManagerScreen);

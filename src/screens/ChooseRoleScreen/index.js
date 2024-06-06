@@ -14,6 +14,10 @@ const ChooseRole = ({ navigation }) => {
         title="Sign Up as User"
         onPress={() => navigation.navigate(routes.SignUpUser)}
       />
+       <Button
+        title="Log In"
+        onPress={() => navigation.navigate(routes.Login)}
+      />
     </View>
   );
 };

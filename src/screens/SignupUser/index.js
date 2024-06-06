@@ -3,14 +3,15 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import axios from 'axios';
 import { routes } from '../../router/routes';
 import { connect } from "react-redux";
+import { storeAsyncStorageObject } from '../../storage/async-storage';
 
 
-const SignupUserScreen = ({navigation}) => {
+const SignupUserScreen = ({navigation,signUp,setUser}) => {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     email: '',
-    username: 'uuy',
+    username: 'e9ruyhy',
     password: '',
   });
   const [error, setError] = useState(null);
@@ -28,10 +29,13 @@ const SignupUserScreen = ({navigation}) => {
     console.log(formData)
     try {
       const response = await axios.post('http://10.0.2.2:8000/api/accounts/register/', formData);
-      console.log("🚀 ~ handleSubmit ~ response:", response)
+      const user = { ...formData , userId:response.data.id};
+      console.log("🚀 ~ handleSubmit ~ user:", user)
       setSuccess('User registered successfully!');
-      navigation.navigate(routes.HomeScreen ,formData)
       setError(null);
+      await setUser(user);
+      await storeAsyncStorageObject('userInfo', user.userId); 
+      signUp();
     } catch (error) {
       setError('Registration failed!');
       setSuccess(null);
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
   signUp: () => dispatch({ type: "SIGN_UP" }),
-  // setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData })
+  setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData })
 })
 
 export const SignUpUser = connect(null, mapDispatchToProps)(SignupUserScreen);

@@ -1,39 +1,88 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {useEffect} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 import ChooseRole from '../screens/ChooseRoleScreen';
 import {SignUpManager} from '../screens/SignupManager';
 import {SignUpUser} from '../screens/SignupUser';
 import {HomeScreen} from '../screens/HomeScreen';
-import MarketPlace from '../screens/MarketPlace';
+import {FoodMarket} from '../screens/FoodMarket';
 import {ProfileScreen} from '../screens/ProfileScreen';
-import { connect } from 'react-redux';
-import { routes } from './routes';
+import {connect} from 'react-redux';
+import {routes} from './routes';
 import Calculations from '../screens/CalculationsScreen';
+import {
+  getAsyncStorageData,
+  logCurrentStorage,
+  getAsyncStorageDataWithParse,
+} from '../storage/async-storage';
+import {DashBoardManager} from '../screens/DashboardManager';
+import CompanyCardForm from '../screens/CompanyForm';
+import keys from '../storage/storage-keys';
+import {Login} from '../screens/LoginScreen';
 
 const Stack = createStackNavigator();
 
-const MyStack = () => {
+const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
+ 
+  useEffect(() => {
+    isSigned();
+    isManagerAccount();
+  }, []);
+
+  const isSigned = async () => {
+    const flag = await getAsyncStorageData(keys.isSignUped);
+    if (flag == 'true') {
+      signUp();
+    } else logout();
+  };
+
+  const isManagerAccount = async () => {
+    const isManagerFlag = await getAsyncStorageDataWithParse(keys?.isManager);
+    
+    if (isManagerFlag === true) {
+      console.log('🚀 ~ isManagerAccount ~ isKidFlag:', isManagerFlag);
+      setIsManager(isManagerFlag);
+    }
+  };
+
+  logCurrentStorage();
+  console.log('isManager', isManager, 'isSignUp', isSignUp);
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
-      <Stack.Screen name={routes.ChooseRole} component={ChooseRole} />
-      <Stack.Screen name={routes.SignUpManager} component={SignUpManager} />
-      <Stack.Screen name={routes.SignUpUser} component={SignUpUser} />
-      <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
-      <Stack.Screen name={routes.MarketPlace} component={MarketPlace} />
-      <Stack.Screen name={routes.Profile} component={ProfileScreen} />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      {!isSignUp ? (
+        <>
+          <Stack.Screen name={routes.ChooseRole} component={ChooseRole} />
+          <Stack.Screen name={routes.SignUpManager} component={SignUpManager} />
+          <Stack.Screen name={routes.SignUpUser} component={SignUpUser} />
+          <Stack.Screen name={routes.Login} component={Login}/>
+        </>
+      ) : isManager ? (
+        <>
+          <Stack.Screen name={routes.DashBoardManager} component={DashBoardManager}/>
+          <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
+          <Stack.Screen name={routes.CompanyForm} component={CompanyCardForm} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
+          <Stack.Screen name={routes.FoodMarket} component={FoodMarket} />
+          <Stack.Screen name={routes.Profile} component={ProfileScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isSignUp: state.signUp.isSignUp,
+  isManager: state?.userRole?.isManager,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  signUp: () => dispatch({ type: 'SIGN_UP' }),
-  logout: () => dispatch({ type: 'LOGOUT' }),
-  removeUser: () => dispatch({ type: 'REMOVE_USER' }),
+const mapDispatchToProps = dispatch => ({
+  signUp: () => dispatch({type: 'SIGN_UP'}),
+  logout: () => dispatch({type: 'LOGOUT'}),
+  removeUser: () => dispatch({type: 'REMOVE_USER'}),
+  setIsManager: isManager =>
+    dispatch({type: 'SET_IS_MANAGER', payload: isManager}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyStack);

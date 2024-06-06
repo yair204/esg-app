@@ -1,59 +1,63 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
-import { Card } from 'react-native-paper';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import IndexUpDown from '../IndexUpDown';
 
 const CustomCard = ({
   bottomText,
   navigation,
   route,
-  url,
+  imageUrl,
   bgColor,
-  cardCoverHigh = 150,
+  calFunc,
+  upwardTrend,
   withText = true,
 }) => {
   return (
     <View style={[styles.card, { backgroundColor: bgColor }]}>
       <TouchableOpacity
-        style={{ flex: 1 }}
+        style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}
         onPress={() => navigation.navigate(route)}>
-        <ImageBackground
-          
-          style={[styles.image]} 
-          imageStyle={{ borderRadius: 16 ,resizeMode: 'center' }} 
-          source={{ uri: url }}>
-          {withText && (
-            <Text style={[styles.cardText, { backgroundColor: bgColor }]}>
-              {bottomText}
-            </Text>
-          )}
-        </ImageBackground>
+        <View style={styles.imageContainer}>
+          <Image resizeMode="contain" style={styles.image} source={imageUrl} />
+         {upwardTrend && <View style={styles.indexUpDownContainer}>
+            <IndexUpDown calFunc={calFunc} upwardTrend={upwardTrend} />
+          </View>}
+        </View>
+        {withText && (
+          <Text style={[styles.cardText, { backgroundColor: bgColor }]}>
+            {bottomText}
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderRadius: 16,
-  },
   card: {
     flex: 1,
     borderRadius: 16,
-    overflow: 'hidden', 
+    overflow: 'hidden',
+  },
+  imageContainer: {
+    width: 70,
+    height: 100,
+    justifyContent: 'center',
+    position: 'relative', 
   },
   image: {
-    flex: 1,
-    justifyContent: 'flex-end',
     width: '100%',
-    height: 170,
+    height: '100%',
     borderRadius: 16,
+  },
+  indexUpDownContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cardText: {
     color: '#464646',

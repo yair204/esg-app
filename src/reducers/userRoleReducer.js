@@ -1,21 +1,21 @@
-// import { storeAsyncStorageValue } from "../storage/async-storage"
-// import keys from "../storage/storage-keys";
+import { storeAsyncStorageValue } from "../storage/async-storage"
+import keys from "../storage/storage-keys";
 
-// const initialState = {
-//     isKid: false,
-// }
+const initialState = {
+    isManager: false,
+}
 
-// const UserRoleReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//         case 'SET_IS_KID':
-//           storeAsyncStorageValue(keys.isKid, action.payload);
-//           return {
-//             ...state,
-//             isKid: action.payload,
-//           };
-//         default:
-//           return state;
-//       }
-// };
+const UserRoleReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'SET_IS_MANAGER':
+          storeAsyncStorageValue(keys.isManager, action.payload);
+          return {
+            ...state,
+            isManager: action.payload,
+          };
+        default:
+          return state;
+      }
+};
 
-// export default UserRoleReducer;
+export default UserRoleReducer;
