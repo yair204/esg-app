@@ -47,8 +47,8 @@ axios.defaults.timeout = 60000;
 export const get = async (url, isPrivate) => {
   try {
     const result = await axios.get(url, isPrivate);
-    console.log("🚀 ~ get ~ result.data:", result.data)
-    return result.data;
+    // console.log("🚀 ~ get ~ result.data:", result)
+    return result;
   } catch (err) {
     console.log(err);
   }

@@ -22,11 +22,18 @@ import {Login} from '../screens/LoginScreen';
 const Stack = createStackNavigator();
 
 const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
+  console.log('isManager', isManager, 'isSignUp', isSignUp);
  
   useEffect(() => {
+    console.log('start1');
     isSigned();
-    isManagerAccount();
   }, []);
+  
+  useEffect(()=>{
+    console.log('star2');
+    isManagerAccount();
+
+  },[])
 
   const isSigned = async () => {
     const flag = await getAsyncStorageData(keys.isSignUped);
@@ -45,7 +52,6 @@ const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
   };
 
   logCurrentStorage();
-  console.log('isManager', isManager, 'isSignUp', isSignUp);
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {!isSignUp ? (

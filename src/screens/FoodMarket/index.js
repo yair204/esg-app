@@ -19,6 +19,7 @@ const FoodMarketScreen = ({userInfo, setUser}) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
+    console.log("foodMarket")
     const checkLocationPermission = async () => {
       try {
         await storeAsyncStorageObject('locationPermission', 'false');

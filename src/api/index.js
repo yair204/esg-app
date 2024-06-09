@@ -4,6 +4,8 @@ import {
   GET_USER_BY_ID,
   GET_ALL_RESTAURANTS,
   GET_USER_BY_EMAIL_AND_PASSWORD,
+  GET_REPORT_BY_COMPANY_NAME,
+  GET_MANAGER_BY_ID,
 } from './url';
 
 
@@ -21,6 +23,12 @@ export const api = {
 
     foodMarket:{
       getAllRestaurants:async () => await get( GET_ALL_RESTAURANTS(), privetRequest),
+    },
+    reports:{
+      getReportByCompanyName:async (name) => await get(GET_REPORT_BY_COMPANY_NAME(name),privetRequest),
+    },
+    managers:{
+      getManagerById:async (id) => await get(GET_MANAGER_BY_ID(id),privetRequest),
     },
 }
 

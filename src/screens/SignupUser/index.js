@@ -26,7 +26,7 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
 
   const handleSubmit = async () => {
     
-    console.log(formData)
+    console.log("formData",formData)
     try {
       const response = await axios.post('http://10.0.2.2:8000/api/accounts/register/', formData);
       const user = { ...formData , userId:response.data.id};

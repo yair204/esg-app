@@ -14,7 +14,7 @@ import { getAsyncStorageDataWithParse } from '../../storage/async-storage';
 import { api } from '../../api';
 // import waterImg from '../../images/Water.png'; // Adjust the path based on your directory structure
 
-export const Home = ({navigation ,userInfo,setUser}) => {
+export const Home = ({navigation ,userInfo,setUser,logout}) => {
   const imageUrl = `https://s3-alpha-sig.figma.com/img/a6f5/8119/4e936871c35a944cf7a892c7022dc833?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nkH8dcNO5DAM~vUPgBO~ppByAGWdpTEKi60hGgOsFHQg6a0j8WPI2j1dMsqm85sTc30Kja0AzVuUYckBXzkupF8sXETCxa5xCiue9pZ6jfwT~4IqQovENaR3qnk80uJWEbPTWqe9XvUBHYbLTs2ZsEhI9ZYGTHvHpF1BcTOEqyzkRWxLW8e6JIkvmeZsD2nauIhSjqowaEpnRQEn0~hLHhuNv7RmRkl7bdOs0NcUcEWXg8AOsxESOG9yZCNZuYtzVZD4VJIEQz1XP2bbfsQ3HK4yHMOC0zQ8L4h~xEByFIN~zSw~GQRIcMN682Rg9uiWB5~-QuMNl5KpcSnRBYhrPg__`;
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -24,14 +24,17 @@ export const Home = ({navigation ,userInfo,setUser}) => {
   
 
   useEffect(() => {
+    console.log('homeScreen');
+    
     const setUserInfo = async () => {
       const userId = await getAsyncStorageDataWithParse("userInfo");
       const user = await api.users.getUserById(userId); 
-      console.log("🚀 ~ setUserInfo ~ user:", user)
+      console.log("🚀 ~ setUserInfo ~ user homescreen:", user)
       await setUser(user);
     }
-    setUserInfo();
-  },[])
+    if(userInfo){
+      setUserInfo();}
+  },[userInfo])
 
 
   const savingByKg = number => {
@@ -45,7 +48,6 @@ export const Home = ({navigation ,userInfo,setUser}) => {
     <Main navigation={navigation}>
       {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
       <View style={styles.container}>
-      {/* <Image source={require('../../images/Water.png')} style={{ width: 200, height: 200 }} /> */}
 
         <View style={{
           flex:1,
@@ -55,7 +57,8 @@ export const Home = ({navigation ,userInfo,setUser}) => {
           paddingHorizontal:23,
           paddingVertical:10
         }}>
-          <Text style={{fontSize:20,color:'#464646'}}>{userInfo.first_name}{' '}{'הי'}</Text>
+          <Text style={{fontSize:20,color:'#464646'}}>{userInfo?.first_name}{' '}{'הי'}</Text>
+          {/* <Button title='logout' onClick={() => logout}/> */}
         </View>
         <View style={styles.bigCardContainer}>
           <Card style={styles.bigCard}>
@@ -156,7 +159,7 @@ export const Home = ({navigation ,userInfo,setUser}) => {
           </View>
         </View>
 
-        <View style={styles.cardContainer}>
+        {/* <View style={styles.cardContainer}>
           <View style={styles.subCardContainer}>
             <CustomCard
               bottomText={'Market Place'}
@@ -203,7 +206,7 @@ export const Home = ({navigation ,userInfo,setUser}) => {
               url={images.news}
             />
           </View>
-        </View>
+        </View> */}
       </View>
       <DatePicker
         modal
@@ -228,7 +231,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   signUp: () => dispatch({ type: "SIGN_UP" }),
-  setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData })
+  setUser: (userData) => dispatch({ type: 'SET_USER_DATA', payload: userData }),
+  logout: () => dispatch({type: 'LOGOUT'}),
+
 })
 
 export const HomeScreen = connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -38,6 +38,7 @@ export const storeAsyncStorageValue = async (key, value) => {
 
 export const removeAsyncStorageValue = async (key, value) => {
   try {
+    console.log("removeeeeeeeeeee")
     await AsyncStorage.removeItem(key);
   }
   catch (e) {

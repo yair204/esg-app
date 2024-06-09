@@ -27,16 +27,15 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://10.0.2.2:8000/api/manager/signup/', formData);
-      const user = {...formData,userId : response.data.id}
-      console.log("🚀 ~ handleSubmit ~ user:", user)
-      console.log("🚀 ~ handleSubmit ~ response:", response.data.id);
+      const user = {...formData, userId : response.data.id}
+      
+      signUp();
       setSuccess('Manager registered successfully!');
       setError(null);
       await storeAsyncStorageObject('userInfo', user.userId);
       await logCurrentStorage()
       setUser(user);
       setIsManager(true);//need to add validation
-      signUp();
     } catch (error) {
       setError('Registration failed!');
       setSuccess(null);
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
 
 const mapDispatchToProps = dispatch => ({
     signUp: () => dispatch({ type: "SIGN_UP" }),

@@ -15,7 +15,7 @@ const CustomCard = ({
   return (
     <View style={[styles.card, { backgroundColor: bgColor }]}>
       <TouchableOpacity
-        style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}
+        style={{ flex: 1, flexDirection: 'column', alignItems: 'center'}}
         onPress={() => navigation.navigate(route)}>
         <View style={styles.imageContainer}>
           <Image resizeMode="contain" style={styles.image} source={imageUrl} />
@@ -38,10 +38,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     overflow: 'hidden',
+    paddingTop: 10,
   },
   imageContainer: {
-    width: 70,
-    height: 100,
+    width: 100,
+    height: 125,
     justifyContent: 'center',
     position: 'relative', 
   },

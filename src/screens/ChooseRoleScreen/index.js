@@ -4,6 +4,8 @@ import { View, Button, StyleSheet } from 'react-native';
 import { routes } from '../../router/routes';
 
 const ChooseRole = ({ navigation }) => {
+
+  console.log('rollllllllllllllll');
   return (
     <View style={styles.container}>
       <Button
