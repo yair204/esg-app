@@ -17,7 +17,6 @@ const SignUpReducer = (state = initialState, action) => {
       };
     }
     case 'LOGOUT':
-      console.log("🚀 ~ SignU55555555555555555555555pReducer ~ clearAsyncStorage:", clearAsyncStorage)
       storeAsyncStorageValue(keys.isSignUped, false);
       clearAsyncStorage();
       return {

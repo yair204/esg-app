@@ -5,7 +5,7 @@ import { routes } from '../../router/routes';
 
 export const ReportCard = ({calFunc, upwardTrend, imgSrc, text,navigation}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes.CalculationsScreen)}>
+    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes.EnergyTab)}>
       <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
         <View style={styles.upHalf}>
           <View style={styles.imgContainer}>

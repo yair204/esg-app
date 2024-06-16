@@ -33,7 +33,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
       const reports = await api.reports.getReportByCompanyName(
         userInfo.company_name,
       );
-      console.log('🚀 ~ handelReports ~ reports:', reports.data);
+      // console.log('🚀 ~ handelReports ~ reports:', reports.data);
     };
 
     handelReports();

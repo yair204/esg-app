@@ -18,6 +18,7 @@ import {DashBoardManager} from '../screens/DashboardManager';
 import CompanyCardForm from '../screens/CompanyForm';
 import keys from '../storage/storage-keys';
 import {Login} from '../screens/LoginScreen';
+import {Energy} from '../screens/CalculationsScreen/energy';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,7 @@ const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
           <Stack.Screen name={routes.DashBoardManager} component={DashBoardManager}/>
           <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
           <Stack.Screen name={routes.CompanyForm} component={CompanyCardForm} />
+          <Stack.Screen name={routes.EnergyTab} component={Energy}/>
         </>
       ) : (
         <>

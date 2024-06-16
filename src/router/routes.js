@@ -9,5 +9,6 @@ export const routes = {
     Profile: 'Profile',
     DashBoardManager:"DashBoardManager",
     CompanyForm:"CompanyForm",
+    EnergyTab:'EnergyTab'
   };
   
