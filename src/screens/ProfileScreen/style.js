@@ -7,7 +7,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    marginTop: 18,
+    backgroundColor:'#EEEBE4',
+    paddingTop:20
+
+  },
+  userNameText:{
+    color:'#464646',
+    fontWeight:'600'
   },
 
   photoPreview: {
@@ -40,33 +46,37 @@ export const styles = StyleSheet.create({
   },
 
   bigCardContainer: {
-    width: '90%',
-    marginVertical: 10,
-    // backgroundColor:'red',
     flex: 1,
+    flexDirection: 'column',
+    padding: 10,
+    gap: 10,
   },
   bigCard: {
     backgroundColor: '#F9F8F8',
-    borderRadius: 16,
+    borderRadius: 10,
+    padding: 10,
+    marginHorizontal: 10,
+    elevation: 2,
+    width: 375,
+    height: 230,
   },
   leftPart: {
     flex: 1,
-    gap: 30,
-    alignItems: 'flex-start',
-    // paddingBottom: 40,
-    flexDirection: 'column',
-    paddingLeft: 10,
-    paddingTop: 10,
-    // backgroundColor:'green',
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
+    
   },
   rightPart: {
-    flex: 1,
-    // backgroundColor:'red',
+    flex: 4,
+    justifyContent:'center',
+    flexDirection: 'row',
   },
 
   profitText: {
-    marginRight: 20,
-    marginTop: 18,
+    marginRight: 10,
+    marginTop: 10,
   },
 
   subCardContainer: {
@@ -86,12 +96,13 @@ export const styles = StyleSheet.create({
   card: {
     margin: 10,
     width: 160,
+    
   },
 
   orderCard: {
     margin: 10,
-    width: 140,
-    height: 150
+    width: 95,
+    height: 100
   },
   textCon: {
     marginBottom: 10,

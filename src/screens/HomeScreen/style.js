@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    marginTop: 18,
+    backgroundColor:'#EEEBE4',
+    paddingBottom:20
+
   },
 
   cardContainer: {
@@ -46,7 +48,7 @@ export const styles = StyleSheet.create({
     
   },
   bigCard: {
-    backgroundColor:'#F9F8F8',
+    backgroundColor:'white',
     borderRadius:16
   },
   leftPart: {
@@ -63,6 +65,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingLeft:10,
     paddingTop:10,
+    alignItems:'center',
+    // backgroundColor:'red'
     
   },
  

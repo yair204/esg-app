@@ -12,7 +12,7 @@ import images from '../../theme/images';
 import { connect } from 'react-redux';
 import { getAsyncStorageDataWithParse } from '../../storage/async-storage';
 import { api } from '../../api';
-// import waterImg from '../../images/Water.png'; // Adjust the path based on your directory structure
+
 
 export const Home = ({navigation ,userInfo,setUser,logout}) => {
   const imageUrl = `https://s3-alpha-sig.figma.com/img/a6f5/8119/4e936871c35a944cf7a892c7022dc833?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nkH8dcNO5DAM~vUPgBO~ppByAGWdpTEKi60hGgOsFHQg6a0j8WPI2j1dMsqm85sTc30Kja0AzVuUYckBXzkupF8sXETCxa5xCiue9pZ6jfwT~4IqQovENaR3qnk80uJWEbPTWqe9XvUBHYbLTs2ZsEhI9ZYGTHvHpF1BcTOEqyzkRWxLW8e6JIkvmeZsD2nauIhSjqowaEpnRQEn0~hLHhuNv7RmRkl7bdOs0NcUcEWXg8AOsxESOG9yZCNZuYtzVZD4VJIEQz1XP2bbfsQ3HK4yHMOC0zQ8L4h~xEByFIN~zSw~GQRIcMN682Rg9uiWB5~-QuMNl5KpcSnRBYhrPg__`;
@@ -60,6 +60,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
           <Text style={{fontSize:20,color:'#464646'}}>{userInfo?.first_name}{' '}{'הי'}</Text>
           <Button title='logout' onClick={() => logout()}/>
         </View>
+
         <View style={styles.bigCardContainer}>
           <Card style={styles.bigCard}>
             <View
@@ -121,6 +122,13 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 <View style={styles.textCO}>
                   <Card.Title title={'חסכון CO2'} titleStyle={{fontSize: 20}} />
                 </View>
+                <View >
+                  <Image style={{width:120,height:110}} source={require('./../../images/trees_gif.gif')}/>
+                </View>
+                <View style={{marginTop:10,width:150}}>
+                  <Text numberOfLines={2} style={{fontSize:17,fontWeight:'600',textAlign:'center'}}>{` ביחד הצלנו ${20} עצים`} </Text>
+                </View>
+
               </View>
             </View>
           </Card>
@@ -148,65 +156,73 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
               upwardTrend={upwardTrend}
             />
           </View>
-          {/* <SmallCard text={'חסכון צריכת מים'} calFunc={consumptionCalculation(10)} upwardTrend={true}/>
-          <SmallCard text={'חסכון צריכת חשמל'} calFunc={consumptionCalculation(7)} upwardTrend={false}/> */}
-          <View style={{marginTop: 20}}>
+
+          <View style={{marginTop: 20,height:80}}>
             <SmallCard
               text={'התרומה שלך'}
               calFunc={consumptionCalculation(30)}
               upwardTrend={true}
+              imgUrl={require('./../../images/Hi.gif')}
             />
           </View>
         </View>
 
-        {/* <View style={styles.cardContainer}>
-          <View style={styles.subCardContainer}>
-            <CustomCard
-              bottomText={'Market Place'}
-              navigation={navigation}
-              route={routes.MarketPlace}
-              imageUrl={images.marketPlace}
-              bgColor={'#FFCD29'}
-            />
-            <CustomCard
-              bottomText={'Food Market'}
-              navigation={navigation}
-              url={images.foodMarket}
-              route={routes.FoodMarket}
-              bgColor={'#2ECBD2'}
-            />
-          </View>
+          <View style={styles.cardContainer}>
+            <View style={styles.subCardContainer}>
+              <CustomCard
+                bottomText={'יד 2'}
+                navigation={navigation}
+                routes={routes.ComingSoon}
+                imageUrl={require('../../images/Furniture.png')}
+                bgColor={'#D1E5D7'}
+              />
+              <CustomCard
+                bottomText={'מה אוכלים'}
+                navigation={navigation}
+                imageUrl={require('../../images/Frame5.png')}
+                route={routes.FoodMarket}
+                bgColor={'#F6E1ED'}
+              />
+            </View>
 
-          <View style={styles.subCardContainer}>
-            <CustomCard
-              bottomText={'volunteering'}
-              navigation={navigation}
-              url={images.volunteering}
-              bgColor={'#EE92C2'}
-            />
-            <CustomCard
-              bottomText={'text'}
-              navigation={navigation}
-              url={images.shareRides}
-              bgColor={'#F7EDCC'}
-            />
-          </View>
+            <View style={styles.subCardContainer}>
+              <CustomCard
+                bottomText={'למי לעזור'}
+                navigation={navigation}
+                imageUrl={require('../../images/Frame9.png')}
+                bgColor={'#F6DCD5'}
+                routes={routes.ComingSoon}
 
-          <View style={styles.subCardContainer}>
-            <CustomCard
-              bottomText={'text'}
-              navigation={navigation}
-              url={images.Recycling}
-              bgColor={'#CDEDEE'}
-            />
-            <CustomCard
-              bottomText={'text'}
-              navigation={navigation}
-              bgColor={'#AF4D98'}
-              url={images.news}
-            />
+              />
+              <CustomCard
+                bottomText={'נסיעה משותפת'}
+                navigation={navigation}
+                imageUrl={require('../../images/Carpool.png')}
+                bgColor={'#C4E4F7'}
+                routes={routes.ComingSoon}
+
+              />
+            </View>
+
+            <View style={styles.subCardContainer}>
+              <CustomCard
+                bottomText={'כמה מיחזרת?'}
+                navigation={navigation}
+                imageUrl={require('../../images/Frame6.png')}
+                bgColor={'#F7EDCC'}
+                routes={routes.ComingSoon}
+
+              />
+              <CustomCard
+                bottomText={'מה חדש'}
+                navigation={navigation}
+                bgColor={'#E7D3E2'}
+                imageUrl={require('../../images/Exciting.png')}
+                routes={routes.ComingSoon}
+
+              />
+            </View>
           </View>
-        </View> */}
       </View>
       <DatePicker
         modal

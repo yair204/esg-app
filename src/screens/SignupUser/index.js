@@ -11,7 +11,7 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
     first_name: '',
     last_name: '',
     email: '',
-    username: 'e9wew3434yhy',
+    username: 'e9wy09hy',
     password: '',
   });
   const [error, setError] = useState(null);

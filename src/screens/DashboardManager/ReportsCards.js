@@ -3,14 +3,14 @@ import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import IndexUpDown from '../../components/IndexUpDown';
 import { routes } from '../../router/routes';
 
-export const ReportCard = ({calFunc, upwardTrend, imgSrc, text,navigation}) => {
+export const ReportCard = ({calFunc, upwardTrend, imgSrc, text,navigation,routes}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes.EnergyTab)}>
+    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes)}>
       <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
         <View style={styles.upHalf}>
           <View style={styles.imgContainer}>
             <Image
-              style={{flex: 1, width: 80, height: 80}}
+              style={{flex: 1, width: 70, height: 80}}
               resizeMode="contain"
               source={imgSrc}
             />

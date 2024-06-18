@@ -15,29 +15,79 @@ import {ReportCard} from './ReportsCards';
 const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [reports, setReports] = useState({});
+  const [carbonFootprint ,setCarbonFootprint] = useState()
+
   const [upwardTrend, setUpwardTrend] = useState(true);
-  const backgroundColor = upwardTrend ? '#98EDB1' : '#FDE5F3';
-  const arrowDirection = upwardTrend ? 'arrow-up' : 'arrow-down';
+  const eleCoeffic = 0.61;
+  const waterCoeffic = 10.6;
+  const gasCoeffic = 2.3;
 
   useEffect(() => {
-    const handelReports = async () => {
-      if (!userInfo) {
-        const userId = await getAsyncStorageDataWithParse('userInfo');
-        console.log('🚀 ~ uploadUser ~ userId:', userId);
-        const user = await api.managers.getManagerById(userId);
-        console.log('🚀 ~ uploadUser ~ user:', user.data);
-        setUser(user.data);
-      }
-
-      console.log('🚀 ~ DashBoard ~ userInfo:', userInfo.company_name);
-      const reports = await api.reports.getReportByCompanyName(
-        userInfo.company_name,
-      );
-      // console.log('🚀 ~ handelReports ~ reports:', reports.data);
+    const handleReports = async () => {
+      try {
+        if (!userInfo || Object.keys(userInfo).length === 0) {
+          const userId = await getAsyncStorageDataWithParse('userInfo');
+          const user = await api.managers.getManagerById(userId);
+          setUser(user.data);
+        }
+        
+        if (userInfo && Object.keys(userInfo).length > 0) {
+          await uploadData(userInfo.company_name);
+        }
+      } catch (error) {
+        console.error('Error fetching user or reports:', error);
+      } 
     };
 
-    handelReports();
+    handleReports();
   }, [userInfo]);
+
+  useEffect(() => {
+   
+   
+  if (reports && Object.keys(reports).length > 0) {
+    const totals = sumUtilities(reports, eleCoeffic, gasCoeffic, waterCoeffic);
+    setCarbonFootprint(totals.totalElectricity + totals.totalGas + totals.totalWater);
+    console.log("🚀 ~ useEffect ~ totals:", carbonFootprint)
+
+  }
+  },[reports])
+
+  const uploadData = async () => {
+   
+    const response = await api.reports.getReportByCompanyName(
+      userInfo.company_name,
+    );
+    const sortedReports = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const latestReports = sortedReports.slice(0, 4);
+    const groupedData = {};
+    latestReports.forEach((report, idx) => {
+      const newKey = `month${idx + 1}`;
+      groupedData[newKey] = report;
+    });
+
+    setReports(groupedData);
+
+  };
+
+  const sumUtilities = (reports, eleCoeffic, gasCoeffic, waterCoeffic) => {
+    let totalElectricity = 0;
+    let totalGas = 0;
+    let totalWater = 0;
+  
+    for (let month in reports) {
+      totalElectricity += reports[month].electricity;
+      totalGas += reports[month].gas;
+      totalWater += reports[month].water;
+    }
+  
+    return {
+      totalElectricity: Math.floor(totalElectricity * eleCoeffic),
+      totalGas: Math.floor(totalGas * gasCoeffic),
+      totalWater: Math.floor(totalWater * waterCoeffic)
+    };
+  };
 
   const consumptionCalculation = number => {
     return number + '%';
@@ -80,15 +130,15 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
               <View style={styles.upperHalfText}>
                 <Text
                   style={{fontSize: 32, color: '#464646', fontWeight: '600'}}>
-                  {20}
+                  {Math.floor(carbonFootprint/8)}
                 </Text>
-                <Text
-                  style={{fontSize: 16, color: '#464646', fontWeight: '600'}}>
+                {/* <Text
+                  style={{fontSize: 13, color: '#464646', fontWeight: '600'}}>
                   עצים
-                </Text>
+                </Text> */}
                 <Text
-                  style={{fontSize: 16, color: '#464646', fontWeight: '600'}}>
-                  שהצלנו
+                  style={{fontSize: 13, color: '#464646', fontWeight: '600',textAlign:'center'}}>
+                    {upwardTrend ? 'עצים שנצטרך לשתול' : 'עצים שהצלנו'}
                 </Text>
               </View>
             </View>
@@ -102,7 +152,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
               <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
                 <Text
                   style={{fontSize: 32, color: '#464646', fontWeight: '600'}}>
-                  {100}
+                  {carbonFootprint}
                 </Text>
                 <Text
                   style={{fontSize: 16, color: '#464646', fontWeight: '600'}}>
@@ -151,23 +201,28 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
               upwardTrend={upwardTrend}
               text={'ממדי שימוש חוזר'}
               imgSrc={require('../../images/Frame2.png')}
+              routes={routes.ComingSoon}
+              navigation={navigation}
             />
           </View>
           <View style={{height: 190, flex: 1}}>
             <ReportCard
               calFunc={consumptionCalculation(32)}
               upwardTrend={upwardTrend}
+              imgSrc={require('../../images/Frame4.png')}
               text={'מדדי  מיחזור'}
-              imgSrc={require('../../images/Frame3.png')}
-            />
+              navigation={navigation}
+              routes={routes.ComingSoon}
+              />
           </View>
           <View style={{height: 190, flex: 1}}>
             <ReportCard
               calFunc={consumptionCalculation(45)}
               upwardTrend={upwardTrend}
               text={'מדדי הפחתה'}
-              imgSrc={require('../../images/Frame4.png')}
+              imgSrc={require('../../images/Frame3.png')}
               navigation={navigation}
+              routes={routes.EnergyTab}
             />
           </View>
         </View>
@@ -177,7 +232,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
               <CustomCard
                 bottomText={'יד 2'}
                 navigation={navigation}
-                route={routes.MarketPlace}
+                routes={routes.ComingSoon}
                 imageUrl={require('../../images/Furniture.png')}
                 bgColor={'#D1E5D7'}
               />
@@ -196,12 +251,16 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
                 navigation={navigation}
                 imageUrl={require('../../images/Frame9.png')}
                 bgColor={'#F6DCD5'}
+                routes={routes.ComingSoon}
+
               />
               <CustomCard
                 bottomText={'נסיעה משותפת'}
                 navigation={navigation}
                 imageUrl={require('../../images/Carpool.png')}
                 bgColor={'#C4E4F7'}
+                routes={routes.ComingSoon}
+
               />
             </View>
 
@@ -211,12 +270,16 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
                 navigation={navigation}
                 imageUrl={require('../../images/Frame6.png')}
                 bgColor={'#F7EDCC'}
+                routes={routes.ComingSoon}
+
               />
               <CustomCard
                 bottomText={'מה חדש'}
                 navigation={navigation}
                 bgColor={'#E7D3E2'}
                 imageUrl={require('../../images/Exciting.png')}
+                routes={routes.ComingSoon}
+
               />
             </View>
           </View>

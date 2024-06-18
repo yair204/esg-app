@@ -5,7 +5,7 @@ import { Footer } from '../footer';
 
 
 
-const Main = ({children,navigation}) => {
+const Main = ({children,navigation,isManager ,withFooter=true}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
         <Header navigation={navigation}/>
@@ -16,7 +16,7 @@ const Main = ({children,navigation}) => {
         {children}
       </View>
       </ScrollView>
-     <Footer navigation={navigation} />
+       {withFooter && <Footer navigation={navigation} isManager={isManager} />}
     </SafeAreaView>
   );
 };

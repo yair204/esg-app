@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { routes } from "../../router/routes";
 
-export const Footer = ({ navigation }) => {
+export const Footer = ({ navigation ,isManager}) => {
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handlePress = (route, button) => {
@@ -25,7 +25,7 @@ export const Footer = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.fixedButton}
-        onPress={() => handlePress(routes.HomeScreen, 'home')}
+        onPress={() => handlePress(isManager? routes.DashBoardManager :routes.HomeScreen, 'home')}
       >
         <FontAwesome5
           name="home"

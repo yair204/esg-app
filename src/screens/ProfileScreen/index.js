@@ -1,12 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  
-} from 'react-native';
+import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Main from '../../components/MainWrapper';
 // import { MakePhotoIcon } from "../../images/MakePhotoIcon";
 import {styles} from './style';
@@ -17,32 +10,28 @@ import {routes} from '../../router/routes';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from 'react-native-date-picker';
 import images from '../../theme/images';
+import { connect } from 'react-redux';
 
-export const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({navigation,userInfo,isManager}) => {
   const [bdVisible, setBDVisible] = useState(false);
   const [photo, setPhoto] = useState([]);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-  const imageUrl = `https://picsum.photos/700`;
 
   const cardCoverHigh = 150;
 
-  
   const scrollRef1 = useRef();
-  const scrollToEnd1 = () => scrollRef1.current.scrollToEnd({ animated: false })
+  const scrollToEnd1 = () => scrollRef1.current.scrollToEnd({animated: false});
   const scrollRef2 = useRef();
-  const scrollToEnd2 = () => scrollRef2.current.scrollToEnd({ animated: false })
+  const scrollToEnd2 = () => scrollRef2.current.scrollToEnd({animated: false});
 
   const setItems = image => {
     setPhoto(image);
     setBDVisible(false);
-    
   };
 
-
-
   return (
-    <Main navigation={navigation}>
+    <Main isManager={isManager} navigation={navigation}>
       <View style={styles.container}>
         <View style={styles.photoPreview}>
           <TouchableOpacity style={styles.selectImageWrapper}>
@@ -61,52 +50,49 @@ export const ProfileScreen = ({navigation}) => {
         </View>
 
         <View style={styles.userName}>
-          <Text style={styles.userNameText}>{'userName'}</Text>
+          <Text style={styles.userNameText}>{'היי'} {userInfo?.first_name}</Text>
         </View>
 
         <View style={styles.bigCardContainer}>
-          <Card style={styles.bigCard}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
+          <TouchableOpacity style={styles.bigCard}>
+            <View style={styles.leftPart}>
 
-                height: 250,
-              }}>
-              <View style={styles.leftPart}>
-                <Card.Title
-                  title={
-                    <TouchableOpacity onPress={() => setOpen(true)}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          gap: 5,
-                        }}>
-                        <FontAwesome5 name="chevron-down" size={15} />
+              <TouchableOpacity onPress={() => setOpen(true)}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 5,
+                    marginTop:10,
+                    marginLeft:10,
+                    backgroundColor:'#EEEBE4',
+                    paddingHorizontal:5
+                  }}>
+                  <FontAwesome5 name="chevron-down" size={15} />
 
-                        <Text style={{fontSize: 17}}>
-                          {date.toLocaleDateString(undefined, {
-                            month: 'numeric',
-                            day: 'numeric',
-                          })}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  }
-                />
-              </View>
-
-              <View style={styles.rightPart}>
-                <View style={styles.profitText}>
-                  <Text style={{fontSize: 20, color: '#464646'}}>
-                    {'הרווחת החודש'}
+                  <Text style={{fontSize: 17,color: '#464646'}}>
+                    {date.toLocaleDateString(undefined, {
+                      month: 'numeric',
+                      day: 'numeric',
+                    })}
                   </Text>
                 </View>
+              </TouchableOpacity>
+              <View style={styles.profitText}>
+                <Text style={{fontSize: 20, color: '#464646'}}>
+                  {'הרווחת החודש'}
+                </Text>
               </View>
             </View>
-          </Card>
+
+            <View style={styles.rightPart}>
+              <View style={{ }}>
+
+              <Image source={require('./../../images/Frame540.png')}/>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.smallCardsContainer}>
@@ -118,47 +104,53 @@ export const ProfileScreen = ({navigation}) => {
 
           <View style={styles.subCardContainer}>
             <ScrollView
-            ref={scrollRef1}
-            onContentSizeChange={scrollToEnd1}
-             contentContainerStyle={{flexDirection: 'row-reverse',flexGrow: 1}}
+              ref={scrollRef1}
+              onContentSizeChange={scrollToEnd1}
+              contentContainerStyle={{
+                flexDirection: 'row-reverse',
+                flexGrow: 1,
+              }}
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              <View style={{flex: 1, flexDirection: 'row',marginHorizontal:10}}>
+              <View
+                style={{flex: 1, flexDirection: 'row', marginHorizontal: 10}}>
                 <View style={styles.card}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'כרטיס לסרט חינם'}
                     navigation={navigation}
-                    url={images.Recycling}
-                    bgColor={'#FFCD29'}
-                    route={routes.MarketPlace}
+                    imageUrl={require('./../../images/pop.png')}
+                    bgColor={'#FFFFFF'}
+                    route={routes.ComingSoon}
+                    height={170}
+                    padding={0}
                   />
                 </View>
                 <View style={styles.card}>
                   <CustomCard
-                    bottomText={'Another'}
+                    bottomText={'שובר מתנה ב 40 שח'}
                     navigation={navigation}
-                    url={imageUrl}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/gift.png')}
+                    bgColor={'#FFFFFF'}
+                    height={170}
+                    padding={0}
                   />
                 </View>
                 <View style={styles.card}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'גלידה מתנה'}
                     navigation={navigation}
-                    url={imageUrl}
-                  />
-                </View>
-                <View style={styles.card}>
-                  <CustomCard
-                    bottomText={'Another Market'}
-                    navigation={navigation}
-                    url={imageUrl}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/ice.png')}
+                    bgColor={'#FFFFFF'}
+                    height={170}
+                    padding={0}
                   />
                 </View>
               </View>
             </ScrollView>
           </View>
         </View>
-
 
         <View style={styles.smallCardsContainer}>
           <View style={styles.textCon}>
@@ -167,44 +159,72 @@ export const ProfileScreen = ({navigation}) => {
             </Text>
           </View>
 
-          <View style={styles.subCardContainer}>
+          <View style={[styles.subCardContainer, {paddingBottom: 40}]}>
             <ScrollView
-            ref={scrollRef2}
-            onContentSizeChange={scrollToEnd2}
-             contentContainerStyle={{flexDirection: 'row-reverse',flexGrow: 1}}
+              ref={scrollRef2}
+              onContentSizeChange={scrollToEnd2}
+              contentContainerStyle={{
+                flexDirection: 'row-reverse',
+                flexGrow: 1,
+              }}
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              <View style={{flex: 1, flexDirection: 'row',marginHorizontal:10}}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row-reverse',
+                  marginHorizontal: 10,
+                }}>
                 <View style={styles.orderCard}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'אוכל'}
                     navigation={navigation}
-                    url={imageUrl}
-                    cardCoverHigh={cardCoverHigh}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/food.png')}
+                    bgColor={'#F6E1ED'}
+                    height={150}
+                    imgHeight={50}
+                    width={60}
+                    textSize={11}
                   />
                 </View>
                 <View style={styles.orderCard}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'יד 2'}
                     navigation={navigation}
-                    url={imageUrl}
-                    cardCoverHigh={cardCoverHigh}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/secondHand.png')}
+                    bgColor={'#D1E5D7'}
+                    height={150}
+                    imgHeight={50}
+                    width={60}
+                    textSize={11}
                   />
                 </View>
                 <View style={styles.orderCard}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'טרמפים'}
                     navigation={navigation}
-                    url={imageUrl}
-                    cardCoverHigh={cardCoverHigh}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/car.png')}
+                    bgColor={'#C4E4F7'}
+                    height={150}
+                    imgHeight={50}
+                    width={60}
+                    textSize={11}
                   />
                 </View>
                 <View style={styles.orderCard}>
                   <CustomCard
-                    bottomText={'Another Market'}
+                    bottomText={'התנדבות'}
                     navigation={navigation}
-                    url={imageUrl}
-                    cardCoverHigh={cardCoverHigh}
+                    route={routes.ComingSoon}
+                    imageUrl={require('./../../images/FrameTree.png')}
+                    bgColor={'#F6DCD5'}
+                    height={150}
+                    imgHeight={50}
+                    width={60}
+                    textSize={11}
                   />
                 </View>
               </View>
@@ -228,3 +248,23 @@ export const ProfileScreen = ({navigation}) => {
     </Main>
   );
 };
+
+
+const mapStateToProps = state => ({
+  userInfo: state.authUserData,
+  language: state.language,
+  isManager: state?.userRole?.isManager,
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  setUser: userData => dispatch({type: 'SET_USER_DATA', payload: userData}),
+  logout: () => dispatch({type: 'LOGOUT'}),
+  setIsManager: isManager =>
+    dispatch({type: 'SET_IS_MANAGER', payload: isManager}),
+});
+
+export const Profile = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProfileScreen);

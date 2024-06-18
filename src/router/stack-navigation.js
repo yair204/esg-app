@@ -5,7 +5,7 @@ import {SignUpManager} from '../screens/SignupManager';
 import {SignUpUser} from '../screens/SignupUser';
 import {HomeScreen} from '../screens/HomeScreen';
 import {FoodMarket} from '../screens/FoodMarket';
-import {ProfileScreen} from '../screens/ProfileScreen';
+import {Profile} from '../screens/ProfileScreen';
 import {connect} from 'react-redux';
 import {routes} from './routes';
 import Calculations from '../screens/CalculationsScreen';
@@ -19,6 +19,7 @@ import CompanyCardForm from '../screens/CompanyForm';
 import keys from '../storage/storage-keys';
 import {Login} from '../screens/LoginScreen';
 import {Energy} from '../screens/CalculationsScreen/energy';
+import ComingSoonScreen from '../screens/ComingSoonScreen';
 
 const Stack = createStackNavigator();
 
@@ -66,14 +67,18 @@ const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
         <>
           <Stack.Screen name={routes.DashBoardManager} component={DashBoardManager}/>
           <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
+          <Stack.Screen name={routes.Profile} component={Profile} />
           <Stack.Screen name={routes.CompanyForm} component={CompanyCardForm} />
           <Stack.Screen name={routes.EnergyTab} component={Energy}/>
+          <Stack.Screen name={routes.ComingSoon} component={ComingSoonScreen}/>
         </>
       ) : (
         <>
           <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
           <Stack.Screen name={routes.FoodMarket} component={FoodMarket} />
-          <Stack.Screen name={routes.Profile} component={ProfileScreen} />
+          <Stack.Screen name={routes.Profile} component={Profile} />
+          <Stack.Screen name={routes.ComingSoon} component={ComingSoonScreen}/>
+
         </>
       )}
     </Stack.Navigator>

@@ -10,21 +10,26 @@ const CustomCard = ({
   bgColor,
   calFunc,
   upwardTrend,
+  height ='auto',
   withText = true,
+  padding = 10,
+  width = 100,
+  imgHeight = 125,
+  textSize = 17
 }) => {
   return (
-    <View style={[styles.card, { backgroundColor: bgColor }]}>
+    <View style={[styles.card, { backgroundColor: bgColor, height: height }]}>
       <TouchableOpacity
         style={{ flex: 1, flexDirection: 'column', alignItems: 'center'}}
         onPress={() => navigation.navigate(route)}>
-        <View style={styles.imageContainer}>
-          <Image resizeMode="contain" style={styles.image} source={imageUrl} />
+        <View style={[styles.imageContainer, {width: width,height: imgHeight}]}>
+          <Image resizeMode='contain' style={styles.image} source={imageUrl} />
          {upwardTrend && <View style={styles.indexUpDownContainer}>
             <IndexUpDown calFunc={calFunc} upwardTrend={upwardTrend} />
           </View>}
         </View>
         {withText && (
-          <Text style={[styles.cardText, { backgroundColor: bgColor }]}>
+          <Text style={[styles.cardText, { backgroundColor: bgColor ,padding: padding ,fontSize: textSize}]}>
             {bottomText}
           </Text>
         )}
@@ -39,10 +44,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     paddingTop: 10,
+   
   },
   imageContainer: {
-    width: 100,
-    height: 125,
+   
     justifyContent: 'center',
     position: 'relative', 
   },
@@ -54,19 +59,18 @@ const styles = StyleSheet.create({
   indexUpDownContainer: {
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: 40,
     right: 0,
-    bottom: 0,
+    bottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cardText: {
     color: '#464646',
     textAlign: 'center',
-    fontSize: 17,
-    padding: 10,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+    fontWeight:'500'
   },
 });
 

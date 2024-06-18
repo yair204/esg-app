@@ -9,7 +9,6 @@ Geocoder.init(GOOGLE_API_KEY);
 export const getCurrentLocation = async () => {
   const permission = await requestLocationPermission();
   if (permission) {
-
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
         async (position) => {
@@ -17,13 +16,30 @@ export const getCurrentLocation = async () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          console.log("🚀 ~ coords:", coords)
+
           try {
             const address = await Geocoder.from(coords);
-            console.log("🚀 ~ address:", address)
-            const countryName = address.results[0].address_components.find(component => component.types.includes("country")).short_name;
+            const addressComponents = address.results[0].address_components;
+
+            // Extract the street name
+            const street = addressComponents.find(component =>
+              component.types.includes("route")
+            )?.long_name;
+
+            // Extract the street number
+            const streetNumber = addressComponents.find(component =>
+              component.types.includes("street_number")
+            )?.long_name;
+
+            // Extract the country name
+            const countryName = addressComponents.find(component =>
+              component.types.includes("country")
+            ).short_name;
+
+            // Get the country code
             const countryCode = getCountryCode(countryName);
-            resolve({ coords, countryName, countryCode });
+
+            resolve({ coords, countryName, countryCode, street, streetNumber });
           } catch (error) {
             reject(error);
           }
