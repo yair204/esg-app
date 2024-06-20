@@ -8,19 +8,19 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  ActivityIndicator, Alert} from 'react-native';
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 // import { styles } from './../style';
 
 import {MediumCard} from '../../../components/MediumCard';
 import {DataCard} from '../../../components/DataCard';
-import { Controller } from './Controller';
-import { api } from '../../../api';
-import { connect } from 'react-redux';
+import {Controller} from './Controller';
+import {api} from '../../../api';
+import {connect} from 'react-redux';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const EnergyTab = ({navigation,userInfo}) => {
-
-
+const EnergyTab = ({navigation, userInfo}) => {
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();
   const [value3, setValue3] = useState();
@@ -34,8 +34,6 @@ const EnergyTab = ({navigation,userInfo}) => {
   const [value11, setValue11] = useState();
   const [value12, setValue12] = useState();
 
-
-
   const [sumPrice, setSumPrice] = useState();
   const [sumConsume, setSumConsume] = useState();
   const [percentageDifference5, setPercentageDifference5] = useState();
@@ -46,26 +44,22 @@ const EnergyTab = ({navigation,userInfo}) => {
   const [pressedButtonWater, setPressedButtonWater] = useState('cost');
   const [pressedButtonGas, setPressedButtonGas] = useState('cost');
 
-
   const [reports, setReports] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(()=>{ 
+  useEffect(() => {
     loadData();
+  }, []);
 
-  },[])
-
-  useEffect(()=>{ 
+  useEffect(() => {
     if (reports && Object.keys(reports).length > 0) {
-
-    if(pressedButtonElc === 'cost'){
+      if (pressedButtonElc === 'cost') {
         setValue1(barHeight(reports?.month1.electricity_cost));
         setValue2(barHeight(reports?.month2.electricity_cost));
         setValue3(barHeight(reports?.month3.electricity_cost));
         setValue4(barHeight(reports?.month4.electricity_cost));
-      }
-      else{
+      } else {
         setValue1(barHeight(reports?.month1.electricity));
         setValue2(barHeight(reports?.month2.electricity));
         setValue3(barHeight(reports?.month3.electricity));
@@ -73,18 +67,16 @@ const EnergyTab = ({navigation,userInfo}) => {
       }
       setLoading(false);
     }
-  },[reports,pressedButtonElc])
+  }, [reports, pressedButtonElc]);
 
-  useEffect(()=>{ 
+  useEffect(() => {
     if (reports && Object.keys(reports).length > 0) {
-
-    if(pressedButtonWater === 'cost'){
+      if (pressedButtonWater === 'cost') {
         setValue5(barHeight(reports?.month1.water_cost));
         setValue6(barHeight(reports?.month2.water_cost));
         setValue7(barHeight(reports?.month3.water_cost));
         setValue8(barHeight(reports?.month4.water_cost));
-      }
-      else{
+      } else {
         setValue5(barHeight(reports?.month1.water));
         setValue6(barHeight(reports?.month2.water));
         setValue7(barHeight(reports?.month3.water));
@@ -92,18 +84,16 @@ const EnergyTab = ({navigation,userInfo}) => {
       }
       setLoading(false);
     }
-  },[reports,pressedButtonWater])
+  }, [reports, pressedButtonWater]);
 
-  useEffect(()=>{ 
+  useEffect(() => {
     if (reports && Object.keys(reports).length > 0) {
-
-    if(pressedButtonGas === 'cost'){
+      if (pressedButtonGas === 'cost') {
         setValue9(barHeight(reports?.month1.gas_cost));
         setValue10(barHeight(reports?.month2.gas_cost));
         setValue11(barHeight(reports?.month3.gas_cost));
         setValue12(barHeight(reports?.month4.gas_cost));
-      }
-      else{
+      } else {
         setValue9(barHeight(reports?.month1.gas));
         setValue10(barHeight(reports?.month2.gas));
         setValue11(barHeight(reports?.month3.gas));
@@ -111,30 +101,30 @@ const EnergyTab = ({navigation,userInfo}) => {
       }
       setLoading(false);
     }
-  },[reports,pressedButtonGas])
-
+  }, [reports, pressedButtonGas]);
 
   const loadData = async () => {
     try {
-      const response = await api.reports.getReportByCompanyName(userInfo?.company_name);
-      const sortedReports = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const response = await api.reports.getReportByCompanyName(
+        userInfo?.company_name,
+      );
+      const sortedReports = response.data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date),
+      );
       const latestReports = sortedReports.slice(0, 4);
       const groupedData = {};
       latestReports.forEach((report, idx) => {
         const newKey = `month${idx + 1}`;
         groupedData[newKey] = report;
-    });
+      });
 
-    
-    setReports(groupedData);
-    console.log(reports?.month1?.electricity_cost); 
+      setReports(groupedData);
+      console.log(reports?.month1?.electricity_cost);
     } catch (err) {
       setError(err.message || 'Failed to load data');
       Alert.alert('Error', error);
-    } 
+    }
   };
-
-
 
   const handlePressElc = button => {
     setPressedButtonElc(button);
@@ -188,7 +178,7 @@ const EnergyTab = ({navigation,userInfo}) => {
   };
 
   const barHeight = value => {
-    return value = (Math.max(0, Math.min(100, parseInt(value, 10))));
+    return (value = Math.max(0, Math.min(100, parseInt(value, 10))));
   };
 
   if (loading) {
@@ -208,154 +198,192 @@ const EnergyTab = ({navigation,userInfo}) => {
   }
 
   return (
-    
     <View style={styles.container}>
       {loading ? (
-      <ActivityIndicator size="large" color="#0000ff" />
-    ) : (
-      <ScrollView>
-          <View style={{flexDirection:'row-reverse',padding:15}}>
-
-           <FontAwesome5 name="angle-right" size={22} onPress={()=> navigation.goBack()}/>  
-          </View>
-        <View style={{flexDirection: 'row-reverse', paddingTop: 15}}>
-          <View style={{height: 50, width: 50}}>
-            <Image
-              resizeMode="contain"
-              style={{height: 35, width: 35}}
-              source={require('./../../../images/X.png')}
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <ScrollView>
+          <View style={{flexDirection: 'row-reverse', padding: 15}}>
+            <FontAwesome5
+              name="angle-right"
+              size={22}
+              onPress={() => navigation.goBack()}
             />
           </View>
-          <Text style={{fontSize: 20}}>מדדי הפחתה</Text>
-        </View>
+          <View style={{flexDirection: 'row-reverse', paddingTop: 15}}>
+            <View style={{height: 50, width: 50}}>
+              <Image
+                resizeMode="contain"
+                style={{height: 35, width: 35}}
+                source={require('./../../../images/X.png')}
+              />
+            </View>
+            <Text style={{fontSize: 20}}>מדדי הפחתה</Text>
+          </View>
 
-        <View>
-          <Controller pressedButton={pressedButtonElc} handlePress={handlePressElc} bgColor1={'#FFCD29'} bgColor2={'#F7EDCC'} title={'מדדי צריכת חשמל'}/>
-        </View>
-        
-        <View style={styles.bigCardContainer}>
-          <DataCard date1={reports.month1.date} date2={reports.month2.date} date3={reports.month3.date} date4={reports.month4.date}
-          val1={value1} val2={value2}
-           val3={value3} val4={value4}
-           isCost={pressedButtonElc === 'cost'}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/lamp.png')}
-            cost={'צריכת חשמל  (₪)'}
-            amount={'(Kwh)  צריכת חשמל'}
-            costInNumber={reports?.month1?.electricity_cost}
-            amountInNumber={`${reports?.month1?.electricity}KV`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/goals.png')}
-            cost={'יעד חודשי  (₪)'}
-            amount={'(Kwh)  יעד חודשי'}
-            costInNumber={100}
-            amountInNumber={`${200}KV`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            imgUrl={require('./../../../images/goals1.png')}
-            cost={'יעד שליש  (₪)'}
-            amount={'(Kwh)  יעד שליש'}
-            costInNumber={100}
-            amountInNumber={`${200}KV`}
-            withDate={false}
-          />
-        </View>
+          <View>
+            <Controller
+              pressedButton={pressedButtonElc}
+              handlePress={handlePressElc}
+              bgColor1={'#FFCD29'}
+              bgColor2={'#F7EDCC'}
+              title={'מדדי צריכת חשמל'}
+            />
+          </View>
 
-        <View>
-          <Controller pressedButton={pressedButtonWater} handlePress={handlePressWater} bgColor1={'#009FFD'} bgColor2={'#C4E4F7'} title={'מדדי צריכת מים'}/>
-        </View>
-        
-        <View style={styles.bigCardContainer}>
-          <DataCard date1={reports.month1.date} date2={reports.month2.date} date3={reports.month3.date} date4={reports.month4.date}
-          val1={value5} val2={value6}
-           val3={value7} val4={value8}
-           isCost={pressedButtonWater === 'cost'}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/goalWater.png')}
-            cost={'צריכת מים  (₪)'}
-            amount={'(M3)  צריכת מים'}
-            costInNumber={reports?.month1?.water}
-            amountInNumber={`${reports?.month1?.water_cost}M3`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/goalsWater.png')}
-            cost={'יעד חודשי  (₪)'}
-            amount={'(M3)  יעד חודשי'}
-            costInNumber={100}
-            amountInNumber={`${200}M3`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            imgUrl={require('./../../../images/goalsWater1.png')}
-            cost={'יעד שליש  (₪)'}
-            amount={'(M3)  יעד שליש'}
-            costInNumber={100}
-            amountInNumber={`${200}M3`}
-            withDate={false}
-          />
-        </View>
+          <View style={styles.bigCardContainer}>
+            <DataCard
+              date1={reports.month1.date}
+              date2={reports.month2.date}
+              date3={reports.month3.date}
+              date4={reports.month4.date}
+              val1={value1}
+              val2={value2}
+              val3={value3}
+              val4={value4}
+              isCost={pressedButtonElc === 'cost'}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/lamp.png')}
+              cost={'צריכת חשמל  (₪)'}
+              amount={'(Kwh)  צריכת חשמל'}
+              costInNumber={reports?.month1?.electricity_cost}
+              amountInNumber={`${reports?.month1?.electricity}KV`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/goals.png')}
+              cost={'יעד חודשי  (₪)'}
+              amount={'(Kwh)  יעד חודשי'}
+              costInNumber={100}
+              amountInNumber={`${200}KV`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              imgUrl={require('./../../../images/goals1.png')}
+              cost={'יעד שליש  (₪)'}
+              amount={'(Kwh)  יעד שליש'}
+              costInNumber={100}
+              amountInNumber={`${200}KV`}
+              withDate={false}
+            />
+          </View>
 
-        <View>
-          <Controller pressedButton={pressedButtonGas} handlePress={handlePressGas} bgColor1={'#FC7A57'} bgColor2={'#F6DCD5'} title={'מדדי צריכת גז'}/>
-        </View>
-        
-        <View style={styles.bigCardContainer}>
-          <DataCard date1={reports.month1.date} date2={reports.month2.date} date3={reports.month3.date} date4={reports.month4.date}
-          val1={value9} val2={value10}
-           val3={value11} val4={value12}
-           isCost={pressedButtonGas === 'cost'}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/FuelDrop.png')}
-            cost={'צריכת דלק  (₪)'}
-            amount={'(L)  צריכת דלק'}
-            costInNumber={reports?.month1?.gas}
-            amountInNumber={`${reports?.month1?.gas_cost}L`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            date={reports.month1.date}
-            imgUrl={require('./../../../images/goalsGas.png')}
-            cost={'יעד חודשי  (₪)'}
-            amount={'(L)  יעד חודשי'}
-            costInNumber={100}
-            amountInNumber={`${100}L`}
-          />
-        </View>
-        <View style={styles.bigCardContainer}>
-          <MediumCard
-            imgUrl={require('./../../../images/goalsGas1.png')}
-            cost={'יעד שליש  (₪)'}
-            amount={'(L)  יעד שליש'}
-            costInNumber={100}
-            amountInNumber={`${100}L`}
-            withDate={false}
-          />
-        </View>
-      </ScrollView>
-    )}
+          <View>
+            <Controller
+              pressedButton={pressedButtonWater}
+              handlePress={handlePressWater}
+              bgColor1={'#009FFD'}
+              bgColor2={'#C4E4F7'}
+              title={'מדדי צריכת מים'}
+            />
+          </View>
+
+          <View style={styles.bigCardContainer}>
+            <DataCard
+              date1={reports.month1.date}
+              date2={reports.month2.date}
+              date3={reports.month3.date}
+              date4={reports.month4.date}
+              val1={value5}
+              val2={value6}
+              val3={value7}
+              val4={value8}
+              isCost={pressedButtonWater === 'cost'}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/goalWater.png')}
+              cost={'צריכת מים  (₪)'}
+              amount={'(M3)  צריכת מים'}
+              costInNumber={reports?.month1?.water}
+              amountInNumber={`${reports?.month1?.water_cost}M3`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/goalsWater.png')}
+              cost={'יעד חודשי  (₪)'}
+              amount={'(M3)  יעד חודשי'}
+              costInNumber={100}
+              amountInNumber={`${200}M3`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              imgUrl={require('./../../../images/goalsWater1.png')}
+              cost={'יעד שליש  (₪)'}
+              amount={'(M3)  יעד שליש'}
+              costInNumber={100}
+              amountInNumber={`${200}M3`}
+              withDate={false}
+            />
+          </View>
+
+          <View>
+            <Controller
+              pressedButton={pressedButtonGas}
+              handlePress={handlePressGas}
+              bgColor1={'#FC7A57'}
+              bgColor2={'#F6DCD5'}
+              title={'מדדי צריכת גז'}
+            />
+          </View>
+
+          <View style={styles.bigCardContainer}>
+            <DataCard
+              date1={reports.month1.date}
+              date2={reports.month2.date}
+              date3={reports.month3.date}
+              date4={reports.month4.date}
+              val1={value9}
+              val2={value10}
+              val3={value11}
+              val4={value12}
+              isCost={pressedButtonGas === 'cost'}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/FuelDrop.png')}
+              cost={'צריכת דלק  (₪)'}
+              amount={'(L)  צריכת דלק'}
+              costInNumber={reports?.month1?.gas}
+              amountInNumber={`${reports?.month1?.gas_cost}L`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              date={reports.month1.date}
+              imgUrl={require('./../../../images/goalsGas.png')}
+              cost={'יעד חודשי  (₪)'}
+              amount={'(L)  יעד חודשי'}
+              costInNumber={100}
+              amountInNumber={`${100}L`}
+            />
+          </View>
+          <View style={styles.bigCardContainer}>
+            <MediumCard
+              imgUrl={require('./../../../images/goalsGas1.png')}
+              cost={'יעד שליש  (₪)'}
+              amount={'(L)  יעד שליש'}
+              costInNumber={100}
+              amountInNumber={`${100}L`}
+              withDate={false}
+            />
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -372,11 +400,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({type: 'SET_IS_MANAGER', payload: isManager}),
 });
 
-export const Energy = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(EnergyTab);
-
+export const Energy = connect(mapStateToProps, mapDispatchToProps)(EnergyTab);
 
 export const styles = StyleSheet.create({
   container: {
@@ -385,7 +409,7 @@ export const styles = StyleSheet.create({
   bigCardContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    paddingVertical:10
+    paddingVertical: 10,
   },
   wrapperCustom: {
     width: '15%',

@@ -20,6 +20,8 @@ import keys from '../storage/storage-keys';
 import {Login} from '../screens/LoginScreen';
 import {Energy} from '../screens/CalculationsScreen/energy';
 import ComingSoonScreen from '../screens/ComingSoonScreen';
+import RestaurantMenu from '../screens/RestaurantMenuScreen';
+import OrderSummary from '../screens/OrderScreen';
 
 const Stack = createStackNavigator();
 
@@ -67,20 +69,23 @@ const MyStack = ({isSignUp, isManager, signUp, logout, setIsManager}) => {
         <>
           <Stack.Screen name={routes.DashBoardManager} component={DashBoardManager}/>
           <Stack.Screen name={routes.CalculationsScreen} component={Calculations}/>
-          <Stack.Screen name={routes.Profile} component={Profile} />
           <Stack.Screen name={routes.CompanyForm} component={CompanyCardForm} />
           <Stack.Screen name={routes.EnergyTab} component={Energy}/>
-          <Stack.Screen name={routes.ComingSoon} component={ComingSoonScreen}/>
         </>
       ) : (
         <>
           <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
-          <Stack.Screen name={routes.FoodMarket} component={FoodMarket} />
-          <Stack.Screen name={routes.Profile} component={Profile} />
-          <Stack.Screen name={routes.ComingSoon} component={ComingSoonScreen}/>
 
         </>
       )}
+      <>
+      <Stack.Screen name={routes.FoodMarket} component={FoodMarket} />
+      <Stack.Screen name={routes.Profile} component={Profile} />
+      <Stack.Screen name={routes.ComingSoon} component={ComingSoonScreen}/>
+      <Stack.Screen name={routes.RestaurantMenu} component={RestaurantMenu} />
+      <Stack.Screen name={routes.OrderSummary} component={OrderSummary}/>
+
+      </>
     </Stack.Navigator>
   );
 };

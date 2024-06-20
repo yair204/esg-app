@@ -22,7 +22,6 @@ function deg2rad(deg) {
 
 // Function to calculate time
 export const calculateTravelTime = (distance, mode) => {
-  console.log("🚀 ~ calculateTravelTime ~ mode:", mode)
   let speed; // speed in km/h
 
   switch (mode) {

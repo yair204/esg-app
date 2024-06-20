@@ -203,6 +203,7 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
                     restaurant={item}
                     imgUrl={require('./../../images/Mask_group.png')}
                     location={location}
+                    navigation={navigation}
                   />
                 )}
                 keyExtractor={item => item.id.toString()}
@@ -222,6 +223,8 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
                   <RestaurantCard
                     restaurant={item}
                     imgUrl={require('./../../images/b.png')}
+                    navigation={navigation}
+                    location={location}
                   />
                 )}
                 keyExtractor={item => item.id.toString()}

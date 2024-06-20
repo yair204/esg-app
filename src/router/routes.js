@@ -10,6 +10,8 @@ export const routes = {
     DashBoardManager:"DashBoardManager",
     CompanyForm:"CompanyForm",
     EnergyTab:'EnergyTab',
-    ComingSoon:"ComingSoon"
+    ComingSoon:"ComingSoon",
+    RestaurantMenu:"RestaurantMenu",
+    OrderSummary:"OrderSummary"
   };
   

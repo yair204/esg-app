@@ -2,15 +2,16 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import { calculateDistance ,calculateTravelTime} from '../../utils/calculateDistance';
+import { routes } from '../../router/routes';
 
-const RestaurantCard = ({restaurant,imgUrl, location}) => {
+const RestaurantCard = ({restaurant,imgUrl, location,navigation}) => {
   const toFixedWithoutZeros = (num) =>{
     return  parseFloat(num);
   }
   const distance = calculateDistance(restaurant?.latitude,restaurant?.longitude,location?.coords.latitude,location?.coords.longitude)
   
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate(routes.RestaurantMenu) }>
       <Image source={imgUrl} style={styles.image} />
       <View style={styles.detailsContainer}>
         <View style={styles.header}>

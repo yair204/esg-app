@@ -29,7 +29,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
     const setUserInfo = async () => {
       const userId = await getAsyncStorageDataWithParse("userInfo");
       const user = await api.users.getUserById(userId); 
-      console.log("🚀 ~ setUserInfo ~ user homescreen:", user)
+      // console.log("🚀 ~ setUserInfo ~ user homescreen:", user)
       await setUser(user);
     }
     if(userInfo){
@@ -58,7 +58,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
           paddingVertical:10
         }}>
           <Text style={{fontSize:20,color:'#464646'}}>{userInfo?.first_name}{' '}{'הי'}</Text>
-          <Button title='logout' onClick={() => logout()}/>
+          <Button title='logout' onClick={logout}/>
         </View>
 
         <View style={styles.bigCardContainer}>
