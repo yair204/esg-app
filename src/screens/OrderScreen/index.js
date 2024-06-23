@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,9 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Modal,
+  Pressable,
+  TouchableWithoutFeedback
 } from 'react-native';
 // import MapView, { Marker } from 'react-native-maps';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -13,12 +16,17 @@ import {Icon} from 'react-native-elements';
 
 const OrderSummary = ({route}) => {
   console.log('🚀 ~ OrderSummary ~ params:', route);
-  const { name, amount,price,oldPrice,description,imageUrl } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(false);
+  const {name, amount, price, oldPrice, description, imageUrl} = route.params;
   const initialRegion = {
     latitude: 32.0853, // Example coordinates for Tel Aviv
     longitude: 34.7818,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
+  };
+  const handleItemPress = () => {
+    setModalVisible(true);
   };
 
   return (
@@ -100,14 +108,56 @@ const OrderSummary = ({route}) => {
           </TouchableOpacity>
         </View>
       </View> */}
-        <Text style={[styles.totalLabel,{paddingHorizontal:10}]}>אמצעי תשלום</Text>
-      <View  >
-        <Image style={{width:410}} source={require('./../../images/payment.png')}/>
+      <Text style={[styles.totalLabel, {paddingHorizontal: 10}]}>
+        אמצעי תשלום
+      </Text>
+      <View>
+        <Image
+          style={{width: 410}}
+          source={require('./../../images/payment.png')}
+        />
       </View>
 
-      <TouchableOpacity style={styles.confirmButton}>
+      <TouchableOpacity
+        style={styles.confirmButton}
+        onPress={() => handleItemPress()}>
         <Text style={styles.confirmButtonText}>אשר הזמנה</Text>
       </TouchableOpacity>
+      {modalVisible && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <TouchableOpacity 
+            style={styles.modalView} 
+            activeOpacity={1} 
+            onPressOut={() => {setModalVisible(false)}}
+          >
+           
+              <TouchableWithoutFeedback>
+              <View style={styles.modalContent}>
+              <Pressable
+                style={styles.closeButton}
+                onPress={() => setModalVisible(false)}>
+                <Text style={styles.closeButtonText}>×</Text>
+              </Pressable>
+
+              <View>
+                <Image source={require('./../../images/order.png')}/>
+              </View>
+              <View>
+              <Image source={require('./../../images/sum.png')}/>
+              </View>
+
+            </View>
+              </TouchableWithoutFeedback>
+          </TouchableOpacity>   
+         
+        </Modal>
+      )}
     </ScrollView>
   );
 };
@@ -199,10 +249,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    padding:10,
+    padding: 10,
     borderColor: '#ccc',
     marginBottom: 20,
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   totalLabel: {
     fontSize: 22,
@@ -255,7 +305,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     padding: 14,
     marginVertical: 5,
-    
   },
   soupImage: {
     width: 80,
@@ -290,6 +339,28 @@ const styles = StyleSheet.create({
     color: '#FC7A57',
     textDecorationLine: 'line-through',
     marginLeft: 10,
+  },
+  modalView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    width: '100%',
+    backgroundColor: 'white',
+    padding: 20,
+    alignItems: 'center',
+    borderTopLeftRadius:25,
+    borderTopRightRadius:25,
+    paddingBottom: 60
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+  },
+  closeButtonText: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
 

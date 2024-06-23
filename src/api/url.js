@@ -1,4 +1,4 @@
-export const API = 'http://10.0.2.2:8000';
+export const API = 'http://16.170.241.68:8000';
 
 
 export const GET_ITEMS_FROM_MARKETPLACE = () => `${API}/api/items`;

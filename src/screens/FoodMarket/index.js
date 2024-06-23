@@ -38,12 +38,14 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
 
 
   useEffect(() => {
+    if (Array.isArray(restaurants) && restaurants.length === 0) 
+      {
     const types = [...new Set(restaurants.map(restaurant => restaurant.type))];
     const uniqueTypeObjects = types.map((type, index) => ({
       id: index.toString(),
       type,
     }));
-    setUniqueTypes(uniqueTypeObjects);
+    setUniqueTypes(uniqueTypeObjects);}
   }, [restaurants]);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
   const setUserInfo = async () => {
     const userId = await getAsyncStorageDataWithParse('userInfo');
     const currentUserInfo = await api.users.getUserById(userId);
-    setUser(currentUserInfo.data);
+    setUser(currentUserInfo?.data);
   };
 
   const fetchRestaurants = async () => {

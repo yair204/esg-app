@@ -5,7 +5,6 @@ import { routes } from '../../router/routes';
 
 const ChooseRole = ({ navigation }) => {
 
-  console.log('rollllllllllllllll');
   return (
     <View style={styles.container}>
       <Button
@@ -16,10 +15,10 @@ const ChooseRole = ({ navigation }) => {
         title="Sign Up as User"
         onPress={() => navigation.navigate(routes.SignUpUser)}
       />
-       <Button
+       {/* <Button
         title="Log In"
         onPress={() => navigation.navigate(routes.Login)}
-      />
+      /> */}
     </View>
   );
 };

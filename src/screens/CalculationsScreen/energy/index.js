@@ -47,7 +47,7 @@ const EnergyTab = ({navigation, userInfo}) => {
   const [reports, setReports] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const company_name = 'dell';
   useEffect(() => {
     loadData();
   }, []);
@@ -106,7 +106,7 @@ const EnergyTab = ({navigation, userInfo}) => {
   const loadData = async () => {
     try {
       const response = await api.reports.getReportByCompanyName(
-        userInfo?.company_name,
+        company_name,
       );
       const sortedReports = response.data.sort(
         (a, b) => new Date(b.date) - new Date(a.date),

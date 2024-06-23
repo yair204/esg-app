@@ -1,18 +1,15 @@
 import React, {useRef, useState} from 'react';
 import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Main from '../../components/MainWrapper';
-// import { MakePhotoIcon } from "../../images/MakePhotoIcon";
 import {styles} from './style';
 import {ImageCarouselPicker} from '../../components/ImageSelector';
-import {Card} from 'react-native-paper';
 import CustomCard from '../../components/CustomCard';
 import {routes} from '../../router/routes';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from 'react-native-date-picker';
-import images from '../../theme/images';
 import { connect } from 'react-redux';
 
-const ProfileScreen = ({navigation,userInfo,isManager}) => {
+const ProfileScreen = ({navigation,userInfo,isManager,logout ,setIsManager}) => {
   const [bdVisible, setBDVisible] = useState(false);
   const [photo, setPhoto] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -29,10 +26,19 @@ const ProfileScreen = ({navigation,userInfo,isManager}) => {
     setPhoto(image);
     setBDVisible(false);
   };
+  const handleLogout = () => {
+    logout();
+    setIsManager(false);
+  }
 
   return (
     <Main isManager={isManager} navigation={navigation}>
       <View style={styles.container}>
+        <TouchableOpacity style={{flexDirection:'row-reverse',width:'100%',paddingHorizontal:10}}
+        onPress={()=> handleLogout()}>
+        <FontAwesome5 name="sign-out-alt" size={19} />
+
+        </TouchableOpacity>
         <View style={styles.photoPreview}>
           <TouchableOpacity style={styles.selectImageWrapper}>
             {photo?.length !== 0 && (
@@ -179,7 +185,7 @@ const ProfileScreen = ({navigation,userInfo,isManager}) => {
                   <CustomCard
                     bottomText={'אוכל'}
                     navigation={navigation}
-                    route={routes.ComingSoon}
+                    route={routes.FoodMarket}
                     imageUrl={require('./../../images/food.png')}
                     bgColor={'#F6E1ED'}
                     height={150}

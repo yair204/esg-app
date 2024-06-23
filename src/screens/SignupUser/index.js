@@ -28,13 +28,12 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
     
     console.log("formData",formData)
     try {
-      const response = await axios.post('http://10.0.2.2:8000/api/accounts/register/', formData);
-      const user = { ...formData , userId:response.data.id};
-      console.log("🚀 ~ handleSubmit ~ user:", user)
+      // const response = await axios.post('http://10.0.2.2:8000/api/accounts/register/', formData);
+      // const user = { ...formData , userId:response.data.id};
       setSuccess('User registered successfully!');
       setError(null);
-      await setUser(user);
-      await storeAsyncStorageObject('userInfo', user.userId); 
+      await setUser(formData);
+      await storeAsyncStorageObject('userInfo', formData); 
       signUp();
     } catch (error) {
       setError('Registration failed!');
@@ -51,25 +50,25 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
         value={formData.first_name}
         onChangeText={(value) => handleChange('first_name', value)}
       />
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder="Last Name"
         value={formData.last_name}
         onChangeText={(value) => handleChange('last_name', value)}
-      />
-      <TextInput
+      /> */}
+      {/* <TextInput
         style={styles.input}
         placeholder="Email"
         value={formData.email}
         onChangeText={(value) => handleChange('email', value)}
-      />
-      <TextInput
+      /> */}
+      {/* <TextInput
         style={styles.input}
         placeholder="Password"
         value={formData.password}
         secureTextEntry
         onChangeText={(value) => handleChange('password', value)}
-      />
+      /> */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Signup</Text>
       </TouchableOpacity>
@@ -82,9 +81,11 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 20,
+    flexDirection: 'column',
+    paddingTop:100
   },
   header: {
     fontSize: 24,

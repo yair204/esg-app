@@ -12,24 +12,28 @@ import CustomCard from '../../components/CustomCard';
 import IndexUpDown from '../../components/IndexUpDown';
 import {ReportCard} from './ReportsCards';
 
-const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
+const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManager}) => {
+  console.log("🚀 ~ DashBoard ~ userInfo:", userInfo)
+  
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [reports, setReports] = useState({});
   const [carbonFootprint ,setCarbonFootprint] = useState()
-
+  const company_name = 'dell';
   const [upwardTrend, setUpwardTrend] = useState(true);
   const eleCoeffic = 0.61;
   const waterCoeffic = 10.6;
   const gasCoeffic = 2.3;
 
   useEffect(() => {
+    
     const handleReports = async () => {
       try {
         if (!userInfo || Object.keys(userInfo).length === 0) {
           const userId = await getAsyncStorageDataWithParse('userInfo');
-          const user = await api.managers.getManagerById(userId);
-          setUser(user.data);
+          
+          // const user = await api.managers.getManagerById(userId);
+          setUser(userId);
         }
         
         if (userInfo && Object.keys(userInfo).length > 0) {
@@ -49,15 +53,14 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
   if (reports && Object.keys(reports).length > 0) {
     const totals = sumUtilities(reports, eleCoeffic, gasCoeffic, waterCoeffic);
     setCarbonFootprint(totals.totalElectricity + totals.totalGas + totals.totalWater);
-    console.log("🚀 ~ useEffect ~ totals:", carbonFootprint)
 
   }
   },[reports])
 
-  const uploadData = async () => {
+  const uploadData = async (company) => {
    
     const response = await api.reports.getReportByCompanyName(
-      userInfo.company_name,
+      company_name,
     );
     const sortedReports = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
     const latestReports = sortedReports.slice(0, 4);
@@ -98,7 +101,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo}) => {
     logout();
   };
   return (
-    <Main navigation={navigation}>
+    <Main isManager={true} navigation={navigation}>
       {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
       <View style={styles.container}>
         <View

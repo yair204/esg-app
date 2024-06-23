@@ -26,15 +26,16 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://10.0.2.2:8000/api/manager/signup/', formData);
-      const user = {...formData, userId : response.data.id}
+      // const response = await axios.post('http://10.0.2.2:8000/api/manager/signup/', formData);
+      // const user = {...formData, userId : response.data.id}
       
       signUp();
       setSuccess('Manager registered successfully!');
       setError(null);
-      await storeAsyncStorageObject('userInfo', user.userId);
+      await storeAsyncStorageObject('userInfo', formData);
       await logCurrentStorage()
-      setUser(user);
+      // setUser(user);
+      setUser(formData)
       setIsManager(true);//need to add validation
     } catch (error) {
       setError('Registration failed!');
@@ -52,30 +53,30 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
         value={formData.first_name}
         onChangeText={(value) => handleChange('first_name', value)}
       />
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder="Last Name"
         value={formData.last_name}
         onChangeText={(value) => handleChange('last_name', value)}
-      />
-      <TextInput
+      /> */}
+      {/* <TextInput
         style={styles.input}
         placeholder="Email"
         value={formData.email}
         onChangeText={(value) => handleChange('email', value)}
-      />
-      <TextInput
+      /> */}
+      {/* <TextInput
         style={styles.input}
         placeholder="Company Name"
         value={formData.company_name}
         onChangeText={(value) => handleChange('company_name', value)}
-      />
-       <TextInput
+      /> */}
+       {/* <TextInput
         style={styles.input}
         placeholder="Password"
         value={formData.password}
         onChangeText={(value) => handleChange('password', value)}
-      />
+      /> */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Signup</Text>
       </TouchableOpacity>
@@ -88,9 +89,11 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 20,
+    flexDirection: 'column',
+    paddingTop:100
   },
   header: {
     fontSize: 24,
