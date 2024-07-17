@@ -46,10 +46,10 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Manager Signup</Text>
+      <Text style={styles.header}>מנהל</Text>
       <TextInput
         style={styles.input}
-        placeholder="First Name"
+        placeholder="שם פרטי"
         value={formData.first_name}
         onChangeText={(value) => handleChange('first_name', value)}
       />
@@ -78,7 +78,7 @@ const SignupManagerScreen = ({navigation ,signUp,setUser,setIsManager}) => {
         onChangeText={(value) => handleChange('password', value)}
       /> */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Signup</Text>
+        <Text style={styles.buttonText}>התחבר</Text>
       </TouchableOpacity>
       {error && <Text style={styles.errorText}>{error}</Text>}
       {success && <Text style={styles.successText}>{success}</Text>}
@@ -106,9 +106,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+    textAlign:'right'
   },
   button: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#1B4533',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',

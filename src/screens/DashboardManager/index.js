@@ -62,6 +62,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
     const response = await api.reports.getReportByCompanyName(
       company_name,
     );
+    if(response.data){
     const sortedReports = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
     const latestReports = sortedReports.slice(0, 4);
     const groupedData = {};
@@ -70,7 +71,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
       groupedData[newKey] = report;
     });
 
-    setReports(groupedData);
+    setReports(groupedData);}
 
   };
 
@@ -167,6 +168,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
               </Text>
             </View>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.bigCard}>
             <View style={[styles.upperHalf, {justifyContent: 'center'}]}>
               <View style={styles.imgContainer1}>
@@ -198,7 +200,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
         </View>
 
         <View style={styles.bigCardContainer}>
-          <View style={{height: 190, flex: 1}}>
+          <View style={{height: '100%', flex: 1}}>
             <ReportCard
               calFunc={consumptionCalculation(23)}
               upwardTrend={upwardTrend}
@@ -208,22 +210,22 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
               navigation={navigation}
             />
           </View>
-          <View style={{height: 190, flex: 1}}>
+          <View style={{height: '100%', flex: 1}}>
             <ReportCard
               calFunc={consumptionCalculation(32)}
               upwardTrend={upwardTrend}
-              imgSrc={require('../../images/Frame4.png')}
+              imgSrc={require('../../images/Frame3.png')}
               text={'מדדי  מיחזור'}
               navigation={navigation}
               routes={routes.ComingSoon}
               />
           </View>
-          <View style={{height: 190, flex: 1}}>
+          <View style={{height: '100%', flex: 1}}>
             <ReportCard
               calFunc={consumptionCalculation(45)}
               upwardTrend={upwardTrend}
               text={'מדדי הפחתה'}
-              imgSrc={require('../../images/Frame3.png')}
+              imgSrc={require('../../images/Frame4.png')}
               navigation={navigation}
               routes={routes.EnergyTab}
             />
@@ -235,7 +237,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
               <CustomCard
                 bottomText={'יד 2'}
                 navigation={navigation}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
                 imageUrl={require('../../images/Furniture.png')}
                 bgColor={'#D1E5D7'}
               />
@@ -254,7 +256,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
                 navigation={navigation}
                 imageUrl={require('../../images/Frame9.png')}
                 bgColor={'#F6DCD5'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
               <CustomCard
@@ -262,7 +264,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
                 navigation={navigation}
                 imageUrl={require('../../images/Carpool.png')}
                 bgColor={'#C4E4F7'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
             </View>
@@ -273,7 +275,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
                 navigation={navigation}
                 imageUrl={require('../../images/Frame6.png')}
                 bgColor={'#F7EDCC'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
               <CustomCard
@@ -281,7 +283,7 @@ const DashBoard = ({navigation, setUser, logout, setIsManager, userInfo,isManage
                 navigation={navigation}
                 bgColor={'#E7D3E2'}
                 imageUrl={require('../../images/Exciting.png')}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
             </View>
@@ -378,7 +380,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F9F8F8',
     borderRadius: 10,
     padding: 10,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     elevation: 2,
     width: 180,
     height: 220,

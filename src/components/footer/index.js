@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { routes } from "../../router/routes";
 
@@ -17,21 +17,24 @@ export const Footer = ({ navigation ,isManager}) => {
         style={styles.fixedButton}
         onPress={() => handlePress(routes.Profile, 'profile')}
       >
-        <FontAwesome5
+        {/* <FontAwesome5
           name="user"
           size={24}
           color={selectedButton === 'profile' ? '#98EDB1' :'#FFFFFF' } 
-        />
+        /> */}
+        <Image style={styles.image} source={require('./../../images/profile.png')}/> 
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.fixedButton}
         onPress={() => handlePress(isManager? routes.DashBoardManager :routes.HomeScreen, 'home')}
       >
-        <FontAwesome5
+        {/* <FontAwesome5
           name="home"
           size={24}
           color={selectedButton === 'home' ? '#98EDB1' :'#FFFFFF'} 
-        />
+        /> */}
+          <Image style={styles.image} source={require('./../../images/Vector.png')}/> 
+
       </TouchableOpacity>
     </View>
   );
@@ -53,4 +56,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 20,
   },
+  image:{
+    width:25,
+    height:25,
+  }
 });

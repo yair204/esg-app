@@ -72,6 +72,7 @@ export const styles = StyleSheet.create({
     flex: 4,
     justifyContent:'center',
     flexDirection: 'row',
+    paddingBottom: 20,
   },
 
   profitText: {

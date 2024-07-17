@@ -95,7 +95,7 @@ const ProfileScreen = ({navigation,userInfo,isManager,logout ,setIsManager}) => 
             <View style={styles.rightPart}>
               <View style={{ }}>
 
-              <Image source={require('./../../images/Frame540.png')}/>
+              <Image style={{width:270,height:170}} source={require('./../../images/Frame5402.png')}/>
               </View>
             </View>
           </TouchableOpacity>

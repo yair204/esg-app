@@ -14,8 +14,8 @@ import DatePicker from 'react-native-date-picker';
 
 export const MediumCard = ({date,cost,amount,costInNumber,amountInNumber ,imgUrl ,withDate=true}) => {
     const [open, setOpen] = useState(false);
-    const dateObj = new Date(date);
 
+    const [newDate, setNewDate] = useState(new Date(date));
 
   return (
     <View style={styles.container}>
@@ -32,7 +32,7 @@ export const MediumCard = ({date,cost,amount,costInNumber,amountInNumber ,imgUrl
               <FontAwesome5 name="chevron-down" size={15} />
 
               <Text style={{fontSize: 17, fontWeight: 600}}>
-                {dateObj?.toLocaleDateString(undefined, {
+                {newDate?.toLocaleDateString(undefined, {
                   month: 'numeric',
                   year: '2-digit',
                 })}
@@ -47,7 +47,7 @@ export const MediumCard = ({date,cost,amount,costInNumber,amountInNumber ,imgUrl
 
           <View style={{flexDirection:'column',flex:1,gap:10}} >
             <View style={{flexDirection:'row' ,justifyContent:'space-between'}}>
-              <Text style={styles.textStyle}>{'₪'}{costInNumber} </Text>
+              <Text style={styles.textStyle}>{costInNumber} {'₪'}</Text>
               <Text style={styles.textStyle}>{cost}</Text>
             </View>
             <View style={{flexDirection:'row' ,justifyContent:'space-between'}}>
@@ -60,10 +60,10 @@ export const MediumCard = ({date,cost,amount,costInNumber,amountInNumber ,imgUrl
      {withDate && <DatePicker
         modal
         open={open}
-        date={dateObj}
-        onConfirm={dateObj => {
+        date={newDate}
+        onConfirm={date => {
           setOpen(false);
-          setDate(dateObj);
+          setNewDate(date);
         }}
         onCancel={() => {
           setOpen(false);

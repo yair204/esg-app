@@ -43,10 +43,10 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Signup</Text>
+      <Text style={styles.header}>עובד</Text>
       <TextInput
         style={styles.input}
-        placeholder="First Name"
+        placeholder="שם פרטי"
         value={formData.first_name}
         onChangeText={(value) => handleChange('first_name', value)}
       />
@@ -70,7 +70,7 @@ const SignupUserScreen = ({navigation,signUp,setUser}) => {
         onChangeText={(value) => handleChange('password', value)}
       /> */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Signup</Text>
+        <Text style={styles.buttonText}>התחבר</Text>
       </TouchableOpacity>
       {error && <Text style={styles.errorText}>{error}</Text>}
       {success && <Text style={styles.successText}>{success}</Text>}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#1B4533',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',

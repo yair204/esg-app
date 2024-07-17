@@ -21,7 +21,8 @@ const CustomCard = ({
     <View style={[styles.card, { backgroundColor: bgColor, height: height }]}>
       <TouchableOpacity
         style={{ flex: 1, flexDirection: 'column', alignItems: 'center'}}
-        onPress={() => navigation.navigate(route)}>
+        onPress={() => route ? navigation.navigate(route) : undefined}
+        >
         <View style={[styles.imageContainer, {width: width,height: imgHeight}]}>
           <Image resizeMode='contain' style={styles.image} source={imageUrl} />
          {upwardTrend && <View style={styles.indexUpDownContainer}>

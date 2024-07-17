@@ -61,7 +61,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
         </View>
 
         <View style={styles.bigCardContainer}>
-          <Card style={styles.bigCard}>
+          <View style={styles.bigCard}>
             <View
               style={{
                 flex: 1,
@@ -70,8 +70,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 height: 250,
               }}>
               <View style={styles.leftPart}>
-                <Card.Title
-                  title={
+                
                     <TouchableOpacity onPress={() => setOpen(true)}>
                       <View
                         style={{
@@ -79,10 +78,13 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                           justifyContent: 'center',
                           alignItems: 'center',
                           gap: 5,
+                          backgroundColor:'#EEEBE4',
+                          padding:5,
+                          margin:10
                         }}>
                         <FontAwesome5 name="chevron-down" size={15} />
 
-                        <Text style={{fontSize: 17}}>
+                        <Text style={{fontSize: 17,fontWeight:'600'}}>
                           {date.toLocaleDateString(undefined, {
                             month: 'numeric',
                             day: 'numeric',
@@ -90,12 +92,11 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  }
-                />
+                
                 <View>
                   <View style={styles.kgContainer}>
                     <Text style={styles.kgText}>{savingByKg(450)}</Text>
-                    <Text style={{fontSize: 32}}>{'Kg'}</Text>
+                    <Text style={{fontSize: 32}}>{'kg'}</Text>
                   </View>
 
                   <View
@@ -119,18 +120,23 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
 
               <View style={styles.rightPart}>
                 <View style={styles.textCO}>
-                  <Card.Title title={'חסכון CO2'} titleStyle={{fontSize: 20}} />
+                  <Text  style={{fontSize: 20,
+                    marginHorizontal:20,
+                    marginVertical:10,
+                    fontWeight:'600',
+                    color:'#464646',
+                    }} > חסכון CO2</Text>
                 </View>
-                <View >
+                <View style={styles.imgContainer}>
                   <Image style={{width:120,height:110}} source={require('./../../images/trees_gif.gif')}/>
                 </View>
                 <View style={{marginTop:10,width:150}}>
-                  <Text numberOfLines={2} style={{fontSize:17,fontWeight:'600',textAlign:'center'}}>{` ביחד הצלנו ${20} עצים`} </Text>
+                  <Text numberOfLines={2} style={{fontSize:17,fontWeight:'600',textAlign:'center'}}>{` ${20} עצים שלא נצטרך לשתול` } </Text>
                 </View>
 
               </View>
             </View>
-          </Card>
+          </View>
         </View>
 
         <View style={styles.cardContainer}>
@@ -139,16 +145,17 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
             <CustomCard
               bottomText={'חסכון בצריכת מים'}
               navigation={navigation}
-              route={routes.MarketPlace}
+              // route={routes.ComingSoon}
               imageUrl={require('../../images/Water.png')} 
               bgColor={'#FFFFFF'}
               calFunc={consumptionCalculation(30)}
               upwardTrend={upwardTrend}
+              width={100}
             />
              <CustomCard
               bottomText={'חסכון בצריכת חשמל'}
               navigation={navigation}
-              route={routes.MarketPlace}
+              // route={routes.ComingSoon}
               imageUrl={require('../../images/lamp.png')} 
               bgColor={'#FFFFFF'}
               calFunc={consumptionCalculation(30)} 
@@ -171,7 +178,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
               <CustomCard
                 bottomText={'יד 2'}
                 navigation={navigation}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
                 imageUrl={require('../../images/Furniture.png')}
                 bgColor={'#D1E5D7'}
               />
@@ -190,7 +197,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 navigation={navigation}
                 imageUrl={require('../../images/Frame9.png')}
                 bgColor={'#F6DCD5'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
               <CustomCard
@@ -198,7 +205,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 navigation={navigation}
                 imageUrl={require('../../images/Carpool.png')}
                 bgColor={'#C4E4F7'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
             </View>
@@ -209,7 +216,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 navigation={navigation}
                 imageUrl={require('../../images/Frame6.png')}
                 bgColor={'#F7EDCC'}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
               <CustomCard
@@ -217,7 +224,7 @@ export const Home = ({navigation ,userInfo,setUser,logout}) => {
                 navigation={navigation}
                 bgColor={'#E7D3E2'}
                 imageUrl={require('../../images/Exciting.png')}
-                routes={routes.ComingSoon}
+                route={routes.ComingSoon}
 
               />
             </View>

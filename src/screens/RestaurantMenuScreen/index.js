@@ -21,7 +21,7 @@ const RestaurantMenu = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
   const categoryViewHeight = useRef(new Animated.Value(0)).current;
   const scrollRef = useRef();
   const scrollToEnd = () => scrollRef.current.scrollToEnd({animated: false});
@@ -44,7 +44,7 @@ const RestaurantMenu = ({navigation}) => {
       description: ' אפונה, גזר, בצל, שום, ירקות שורש',
       price: '19.90 ₪',
       oldPrice: '39.90 ₪',
-      imageUrl: require('./../../images/Soup.png'),
+      imageUrl: require('./../../images/new-soap.png'),
     },
   ];
   const starters = [
@@ -105,6 +105,21 @@ const RestaurantMenu = ({navigation}) => {
     setModalVisible(true);
   };
 
+  const decrementCounter = () => {
+    if (counter > 0) {
+      setCounter(counter - 1);
+    }
+  };
+
+  const incrementCounter = () => {
+    setCounter(counter + 1);
+  };
+
+  const extractPrice = (price) => {
+    return price.match(/[\d.]+/);
+
+  };
+
   const handleScroll = (event) => {
     const scrollYPosition = event.nativeEvent.contentOffset.y;
     if (scrollYPosition > 0) {
@@ -143,7 +158,8 @@ const RestaurantMenu = ({navigation}) => {
     <View style={styles.container}>
     <LinearGradient
               colors={['#F6E1ED', '#FFFFFF']}
-              style={styles.linearGradient}>
+              style={styles.linearGradient}
+              >
       <View style={styles.header}>
         <Image
           source={require('./../../images/Mask_group.png')}
@@ -224,9 +240,9 @@ const RestaurantMenu = ({navigation}) => {
         </View>
       )}
        {(selectedCategory === 'תבשילים' || selectedCategory === null) && (
-        <View>
+        <View >
         <Text style={styles.sectionTitle}>תבשילים</Text>
-        <View style={styles.x}>
+        <View style={{paddingBottom:50}}>
           <FlatList
             data={dishes}
             renderItem={renderSoupItem}
@@ -236,7 +252,6 @@ const RestaurantMenu = ({navigation}) => {
         </View>
         </View>
        )}
-        <View style={{marginBottom: 30}}></View>
       </ScrollView>
       </LinearGradient>
       {selectedItem && (
@@ -265,16 +280,16 @@ const RestaurantMenu = ({navigation}) => {
                 <Text style={styles.modalOldPrice}>{selectedItem.oldPrice}</Text>
               </View>
               <View style={styles.modalQuantityContainer}>
-                <TouchableOpacity style={styles.modalQuantityButton} onPress={()=> setCounter(counter - 1)}>
+                <TouchableOpacity style={styles.modalQuantityButton} onPress={decrementCounter}>
                   <Text style={styles.modalQuantityButtonText}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.modalQuantityText}>{counter}</Text>
-                <TouchableOpacity style={styles.modalQuantityButton} onPress={()=> setCounter(counter + 1)}>
+                <TouchableOpacity style={styles.modalQuantityButton} onPress={incrementCounter}>
                   <Text style={styles.modalQuantityButtonText}>+</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.addToOrderButton} onPress={()=> navigation.navigate(routes.OrderSummary,selectedItem)}>
-                <Text style={styles.addToOrderButtonText}>הוסף להזמנה 35₪</Text>
+              <TouchableOpacity style={styles.addToOrderButton} onPress={()=> counter ? navigation.navigate(routes.OrderSummary,selectedItem): undefined}>
+                <Text style={styles.addToOrderButtonText}>הוסף להזמנה  {Math.floor(counter * extractPrice(selectedItem.price))} {'₪'}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -506,6 +521,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#98EDB1',
   },
+  linearGradient:{
+    flex:1
+  }
  
 });
 

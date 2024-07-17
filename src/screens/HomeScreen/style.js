@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     // paddingBottom: 40,
     flexDirection: 'column',
-    paddingLeft:10,
+    paddingLeft:20,
     paddingTop:10,
     
   },
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingLeft:10,
     paddingTop:10,
-    alignItems:'center',
+    // alignItems:'center',
     // backgroundColor:'red'
     
   },
@@ -75,21 +75,26 @@ export const styles = StyleSheet.create({
     fontWeight:'bold',
   },
   kgText:{
-    fontSize: 64,
-    // fontWeight:'bold',
+    fontSize: 54,
+    fontWeight:'600',
     color:'#464646'
   },
   textCO:{
-    width:'80%',
-    marginLeft: 45,
+    // width:'80%',
+    // marginLeft: 45,
     marginTop: 4,
-    
+  
 
   },
+  imgContainer:{
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   kgContainer:{
-    marginLeft:10,
+    // marginLeft:10,
     flexDirection:'row',
-    alignItems:"center",
+    alignItems:'baseline',
+    
     
 
   },

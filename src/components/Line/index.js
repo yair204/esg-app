@@ -3,7 +3,7 @@ import {
   View,Text
 } from 'react-native';
 
-export const Line = ({number, isCost}) => {
+export const Line = ({number, isCost,measure}) => {
     return (
       <View
         style={{
@@ -18,13 +18,18 @@ export const Line = ({number, isCost}) => {
             width: '70%',
             borderBottomColor: '#EAEAEA',
           }}></View>
-        <View style={{flexDirection: 'row-reverse', gap: 10}}>
-          <Text style={{fontWeight: 600, color: '#464646'}}>{number}{'k'}</Text>
+        <View style={{flexDirection: 'row', gap: 1.5,justifyContent:'flex-end',width:60}}>
+          <Text style={{fontWeight: 600, color: '#464646',alignItems:'flex-end'}}>{number}</Text>
           {isCost ? (
-            <Text style={{fontWeight: 600, color: '#464646'}}>שח</Text>
+            <Text style={{fontWeight: 600, color: '#464646',fontSize:15}}>₪</Text>
+          ) :measure=== "electric"?  (
+            <Text style={{fontWeight: 600, color: '#464646'}}>Kwh</Text>
+          ):measure=== "gas"? (
+            <Text style={{fontWeight: 600, color: '#464646'}}>L</Text>
           ) : (
-            <Text style={{fontWeight: 600, color: '#464646'}}>KV</Text>
-          )}
+            <Text style={{fontWeight: 600, color: '#464646'}}>M3</Text>
+          ) 
+        }
         </View>
       </View>
     );

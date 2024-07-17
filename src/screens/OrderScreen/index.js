@@ -83,7 +83,7 @@ const OrderSummary = ({route}) => {
 
       <View style={styles.totalContainer}>
         <Text style={styles.totalLabel}>סכום ההזמנה</Text>
-        <Text style={styles.totalAmount}>35.00 ₪</Text>
+        <Text style={styles.totalAmount}>{price}</Text>
       </View>
 
       {/* <View style={styles.paymentMethods}>

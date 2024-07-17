@@ -6,7 +6,7 @@ import { routes } from '../../router/routes';
 export const ReportCard = ({calFunc, upwardTrend, imgSrc, text,navigation,routes}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes)}>
-      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center',gap:10}}>
         <View style={styles.upHalf}>
           <View style={styles.imgContainer}>
             <Image
@@ -37,22 +37,24 @@ const styles = StyleSheet.create({
   },
   downHalf: {
     flex: 1,
-    width: '90%',
+    width: '100%',
     // alignItems: 'center',
 
   },
   imgContainer: {
     height: 70,
     width: 70,
+    
   },
   container: {
     backgroundColor: '#F9F8F8',
     borderRadius: 10,
-    padding: 10,
+    paddingVertical: 20,
     // marginHorizontal: 10,
     elevation: 2,
     width: '100%',
     height: '100%',
+    
   },
   text: {
     fontSize: 17,

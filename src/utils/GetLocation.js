@@ -36,10 +36,15 @@ export const getCurrentLocation = async () => {
               component.types.includes("country")
             ).short_name;
 
+            // Extract the city name
+            const city = addressComponents.find(component =>
+              component.types.includes("locality")
+            )?.long_name;
+
             // Get the country code
             const countryCode = getCountryCode(countryName);
 
-            resolve({ coords, countryName, countryCode, street, streetNumber });
+            resolve({ coords, countryName, countryCode, street, streetNumber, city });
           } catch (error) {
             reject(error);
           }

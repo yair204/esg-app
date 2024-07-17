@@ -38,7 +38,7 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
 
 
   useEffect(() => {
-    if (Array.isArray(restaurants) && restaurants.length === 0) 
+    if (Array.isArray(restaurants) && restaurants.length > 0) 
       {
     const types = [...new Set(restaurants.map(restaurant => restaurant.type))];
     const uniqueTypeObjects = types.map((type, index) => ({
@@ -171,7 +171,7 @@ const FoodMarketScreen = ({userInfo, setUser, navigation}) => {
                   <FontAwesome5 name="chevron-down" size={19} />
                 </TouchableOpacity>
                <View style={styles.location}>
-               {showLocation && <Text style={[{fontSize:16}]}>{location?.countryName} {location?.streetNumber} {location?.street}</Text>}
+               {showLocation && <Text style={[{fontSize:16}]}>{location?.countryName} {location?.city} {location?.streetNumber} {location?.street}</Text>}
                 </View>
                 <View style={styles.searchContainer}>
                   <SearchBar

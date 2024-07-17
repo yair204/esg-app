@@ -1,55 +1,61 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
 const data = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
+  { label: 'שליש', value: '1' },
+  { label: 'רבעון', value: '2' },
+  { label: 'שנתי', value: '3' },
 ];
 
 const DropdownComponent = () => {
   const [value, setValue] = useState(null);
 
   return (
-    <Dropdown
-    
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      iconStyle={styles.iconStyle}
-      data={data}
-      search
-      maxHeight={300}
-      labelField="label"
-      valueField="value"
-      placeholder="רבעון"
-      searchPlaceholder="Search..."
-      value={value}
-      onChange={item => {
-        setValue(item.value);
-      }}
-    //   renderLeftIcon={() => (
-    //     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-    //   )}
-    />
+    <View style={styles.container}>
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        containerStyle={styles.dropdownContainer}  // Apply the container style
+        data={data}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder="שליש"
+        searchPlaceholder="Search..."
+        value={value}
+        onChange={item => {
+          setValue(item.value);
+        }}
+        //   renderLeftIcon={() => (
+        //     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+        //   )}
+      />
+    </View>
   );
 };
 
 export default DropdownComponent;
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
   dropdown: {
-    margin: 16,
+    width: 100,  // Set the width of the dropdown
     height: 50,
-    
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  dropdownContainer: {
+    width: 100,  
   },
   icon: {
     marginRight: 5,
@@ -66,6 +72,6 @@ const styles = StyleSheet.create({
   },
   inputSearchStyle: {
     height: 40,
-    fontSize: 16,
+    fontSize: 12,
   },
 });

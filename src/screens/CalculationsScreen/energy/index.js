@@ -242,35 +242,36 @@ const EnergyTab = ({navigation, userInfo}) => {
               val3={value3}
               val4={value4}
               isCost={pressedButtonElc === 'cost'}
+              measure={'electric'}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/lamp.png')}
-              cost={'צריכת חשמל  (₪)'}
-              amount={'(Kwh)  צריכת חשמל'}
+              cost={'צריכת חשמל'}
+              amount={'צריכת חשמל'}
               costInNumber={reports?.month1?.electricity_cost}
-              amountInNumber={`${reports?.month1?.electricity}KV`}
+              amountInNumber={`${reports?.month1?.electricity}${' '}Kwh`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/goals.png')}
-              cost={'יעד חודשי  (₪)'}
-              amount={'(Kwh)  יעד חודשי'}
-              costInNumber={100}
-              amountInNumber={`${200}KV`}
+              cost={'יעד חודשי'}
+              amount={'יעד חודשי'}
+              costInNumber={200}
+              amountInNumber={`${330}${' '}Kwh`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               imgUrl={require('./../../../images/goals1.png')}
-              cost={'יעד שליש  (₪)'}
-              amount={'(Kwh)  יעד שליש'}
-              costInNumber={100}
-              amountInNumber={`${200}KV`}
+              cost={'יעד שליש'}
+              amount={'יעד שליש'}
+              costInNumber={800}
+              amountInNumber={`${1320} ${''}Kwh`}
               withDate={false}
             />
           </View>
@@ -296,37 +297,38 @@ const EnergyTab = ({navigation, userInfo}) => {
               val3={value7}
               val4={value8}
               isCost={pressedButtonWater === 'cost'}
+              measure={'water'}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/goalWater.png')}
-              cost={'צריכת מים  (₪)'}
-              amount={'(M3)  צריכת מים'}
+              cost={'צריכת מים'}
+              amount={'צריכת מים'}
               costInNumber={reports?.month1?.water}
-              amountInNumber={`${reports?.month1?.water_cost}M3`}
+              amountInNumber={`${reports?.month1?.water_cost}${' '}M3`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/goalsWater.png')}
-              cost={'יעד חודשי  (₪)'}
-              amount={'(M3)  יעד חודשי'}
-              costInNumber={100}
-              amountInNumber={`${200}M3`}
+              cost={'יעד חודשי '}
+              amount={'יעד חודשי'}
+              costInNumber={40}
+              amountInNumber={`${30}${' '}M3`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               imgUrl={require('./../../../images/goalsWater1.png')}
-              cost={'יעד שליש  (₪)'}
-              amount={'(M3)  יעד שליש'}
-              costInNumber={100}
-              amountInNumber={`${200}M3`}
-              withDate={false}
-            />
+              cost={'יעד שליש '}
+              amount={'יעד שליש'}
+                costInNumber={160}
+                amountInNumber={`${120}${' '}M3`}
+                withDate={false}
+              />
           </View>
 
           <View>
@@ -335,7 +337,7 @@ const EnergyTab = ({navigation, userInfo}) => {
               handlePress={handlePressGas}
               bgColor1={'#FC7A57'}
               bgColor2={'#F6DCD5'}
-              title={'מדדי צריכת גז'}
+              title={'מדדי צריכת דלק'}
             />
           </View>
 
@@ -350,35 +352,36 @@ const EnergyTab = ({navigation, userInfo}) => {
               val3={value11}
               val4={value12}
               isCost={pressedButtonGas === 'cost'}
+              measure={'gas'}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/FuelDrop.png')}
-              cost={'צריכת דלק  (₪)'}
-              amount={'(L)  צריכת דלק'}
+              cost={'צריכת דלק'}
+              amount={'צריכת דלק'}
               costInNumber={reports?.month1?.gas}
-              amountInNumber={`${reports?.month1?.gas_cost}L`}
+              amountInNumber={`${reports?.month1?.gas_cost}${' '}L`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               date={reports.month1.date}
               imgUrl={require('./../../../images/goalsGas.png')}
-              cost={'יעד חודשי  (₪)'}
-              amount={'(L)  יעד חודשי'}
-              costInNumber={100}
-              amountInNumber={`${100}L`}
+              cost={'יעד חודשי'}
+              amount={'יעד חודשי'}
+              costInNumber={250}
+              amountInNumber={`${100}${' '}L`}
             />
           </View>
           <View style={styles.bigCardContainer}>
             <MediumCard
               imgUrl={require('./../../../images/goalsGas1.png')}
-              cost={'יעד שליש  (₪)'}
-              amount={'(L)  יעד שליש'}
-              costInNumber={100}
-              amountInNumber={`${100}L`}
+              cost={'יעד שליש'}
+              amount={'יעד שליש'}
+              costInNumber={1000}
+              amountInNumber={`${450}${' '}L`}
               withDate={false}
             />
           </View>
