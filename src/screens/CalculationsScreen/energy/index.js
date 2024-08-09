@@ -178,7 +178,7 @@ const EnergyTab = ({navigation, userInfo}) => {
   };
 
   const barHeight = value => {
-    return (value = Math.max(0, Math.min(100, parseInt(value, 10))));
+    return (value);
   };
 
   if (loading) {

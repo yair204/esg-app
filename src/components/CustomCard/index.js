@@ -20,7 +20,7 @@ const CustomCard = ({
   return (
     <View style={[styles.card, { backgroundColor: bgColor, height: height }]}>
       <TouchableOpacity
-        style={{ flex: 1, flexDirection: 'column', alignItems: 'center'}}
+        style={{ flex: 1, flexDirection: 'row', alignItems: 'center'}}
         onPress={() => route ? navigation.navigate(route) : undefined}
         >
         <View style={[styles.imageContainer, {width: width,height: imgHeight}]}>
